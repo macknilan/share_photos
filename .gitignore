@@ -417,10 +417,5 @@ dump.rdb
 ### Project template
 apps/media/
 apps/static/CACHE/
-!apps/plugins/
-
-
-
-
-
+!apps/static/plugins/
 
