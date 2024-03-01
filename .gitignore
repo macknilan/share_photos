@@ -103,9 +103,11 @@ celerybeat.pid
 .env.local
 .venv
 .venvs
+.envs/
 venv/
 env/
 ENV/
+
 
 # Spyder project settings
 .spyderproject
@@ -414,7 +416,11 @@ dump.rdb
 
 ### Project template
 apps/media/
-apps/CACHE/
+apps/static/CACHE/
+!apps/plugins/
+
+
+
 
 
 
