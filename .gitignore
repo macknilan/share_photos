@@ -417,5 +417,4 @@ dump.rdb
 ### Project template
 apps/media/
 apps/static/CACHE/
-!apps/static/plugins/
-
+!/apps/static/plugins/animejs/lib/
