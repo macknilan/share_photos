@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block layout %}
+
+    <div class="block max-w-3xl mx-auto my-12 px-6">
+            <section>
+                {% block content %}
+                    <!-- a_posts/post_create.html -->
+                    <!-- a_posts/post_delete.html -->
+                {% endblock content %}
+            </section>
+    </div>
+
+{% endblock layout %}

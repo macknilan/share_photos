@@ -1,0 +1,50 @@
+{% load static i18n compress %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Share photos with django project"/>
+    <meta name="author" content="Rodolfo"/>
+
+    <title>{% block title %}Django + Tailwind CSS + Flowbite{% endblock title %}</title>
+    <script src="https://kit.fontawesome.com/6f83d1d3e1.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" type="image/png" href="{% static "images/favicons/favicon.ico" %}">
+
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "src/output.css" %}">
+    {% endcompress %}
+
+</head>
+
+<body class="bg-gray-100">
+
+
+    <header class="sticky top-0">
+        <div class="flex items-center justify-center">
+            {% include "includes/messages.html" %}
+        </div>
+        {% include "includes/navbar.html" %}
+    </header>
+
+    <main class="mt-4 px-4">
+        {% block layout %}
+            <!-- layouts/a.html -->
+            <!-- layouts/b.html -->
+        {% endblock layout %}
+    </main>
+
+    {% block inline_javascript %}
+        <!-- {# Placed at the top of the document so pages load faster with defer #} -->
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+        <!-- My stuff: Third-party javascript libraries go here -->
+
+        <script defer src="{% static "js/myjs.js" %}"></script>
+    {% endblock inline_javascript %}
+
+</body>
+
+</html>

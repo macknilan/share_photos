@@ -1,0 +1,18 @@
+{
+  "name": "share_photos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tailwindcss -i ./apps/static/src/input.css -o ./apps/static/src/output.css --watch"
+  },
+  "keywords": [],
+  "author": "mack",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  },
+  "dependencies": {
+    "flowbite": "^2.3.0"
+  }
+}

@@ -1,0 +1,63 @@
+{% extends "layouts/b.html" %}
+{% load static i18n %}
+
+
+{% block content %}
+
+
+    <div class="flex flex-col items-center justify-center">
+        <div class="mx-auto max-w-2xl px-4 py-8 lg:py-16">
+            <h1 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+                Edit Post
+                <i class="fa-solid fa-pen"></i>
+            </h1>
+            <div class="max-w-full rounded-lg border border-gray-200 bg-white p-2 shadow dark:border-gray-700 dark:bg-gray-800">
+                <picture>
+                    <img class="rounded-t-lg p-2 shadow-xl dark:shadow-gray-800"
+                         src="{{ post.image }}" alt="{{ post.title }}" title="{{ post.title }}">
+                </picture>
+
+                <h5 class="mb-2 pt-4 pb-1 px-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {{ post.title }}
+                </h5>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="p-2">
+                        {{ form.body }}
+                        {% if form.body.errors %}
+                            <ol>
+                                {% for error in form.body.errors %}
+                                    <li class="mt-2 text-sm text-red-600 dark:text-red-500"><i class="fa-sharp fa-solid fa-bomb"></i> {{ error|escape }}</li>
+                                {% endfor %}
+                            </ol>
+                        {% endif %}
+                    </div>
+                    <div class="p-2">
+                        {% for tag in form.tags %}
+                            {{ tag }}
+                        {% endfor %}
+                        {% if form.tags.errors %}
+                            <ol>
+                                {% for error in form.tags.errors %}
+                                    <li class="mt-2 text-sm text-red-600 dark:text-red-500"><i class="fa-sharp fa-solid fa-bomb"></i> {{ error|escape }}</li>
+                                {% endfor %}
+                            </ol>
+                        {% endif %}
+                    </div>
+
+
+
+                    <div class="w-full p-2">
+                        <button type="submit"
+                                class="w-full rounded-lg bg-blue-700 px-5 text-center text-sm font-medium text-white py-2.5 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 sm:w-auto dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Confirm
+                        </button>
+                        <a class="ml-1 button secondaryAction" href="{{ request.META.HTTP_REFERER }}">Go Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

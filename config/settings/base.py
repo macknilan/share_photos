@@ -99,7 +99,8 @@ THIRD_PARTY_APPS = []
 # LOCAL_APPS = ["apps.a_posts"]
 LOCAL_APPS = [
     # My custom apps
-    "apps.users"
+    "apps.users",
+    "apps.a_posts"
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

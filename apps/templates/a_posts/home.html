@@ -1,0 +1,14 @@
+{% extends "layouts/a.html" %}
+{% load static i18n %}
+
+
+{% block content %}
+
+    {% for post in posts %}
+
+                <!-- CARDS -->
+                {% include "a_posts/post.html" %}
+
+    {% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block layout %}
+
+    <!-- HERO -->
+    <section class="dark:bg-gray-900 bg-cover bg-[url('https://live.staticflickr.com/65535/49909538937_3255dcf9e7_b.jpg')]">
+        <!-- bg-white -->
+        {% include "includes/hero.html" %}
+    </section>
+    <!-- /HERO -->
+
+    <div class="container mx-auto flex max-w-5xl flex-wrap justify-around mt-4">
+            <section>
+                {% block content %}
+                    <!-- a_posts/home.html -->
+                {% endblock content %}
+            </section>
+        <!-- ASIDE DE CATEGORÍAS -->
+        {% include "includes/sidebar.html" %}
+    </div>
+
+{% endblock layout %}
