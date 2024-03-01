@@ -413,6 +413,8 @@ tags
 dump.rdb
 
 ### Project template
-# django_cookie_cutter_sand_box/media/
+apps/media/
+apps/CACHE/
+
 
 
