@@ -1,0 +1,169 @@
+{% extends "layouts/d.html" %}
+{% load static i18n %}
+
+
+{% block content %}
+    <div class="mx-auto flex flex-col items-center gap-2.5">
+        <!-- PROFILE CARD -->
+        <section>
+            <div class="w-full rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800 md:w-[36rem] lg:w-[50rem]">
+                <div class="flex justify-end px-4 pt-4">
+                    <button id="dropdownButton" data-dropdown-toggle="dropdown"
+                            class="inline-block rounded-lg text-sm text-gray-500 p-1.5 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+                            type="button">
+                        <span class="sr-only">Open dropdown</span>
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </button>
+                    <!-- Dropdown menu -->
+                    <div id="dropdown"
+                         class="z-10 hidden w-44 list-none rounded-lg bg-white text-base shadow divide-y divide-gray-100 dark:bg-gray-700">
+                        <ul class="py-2" aria-labelledby="dropdownButton">
+                            <li>
+                                <a href="{% url 'users:profile-edit' %}"
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">
+                                    Edit
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center pb-10">
+                    <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ profile.picture.url }}"
+                         alt="{{ profile.real_name }}"/>
+                    <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{ profile.real_name }}</h5>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">@{{ profile.user.username }}</span>
+                    <p class="text-base text-gray-900 dark:text-white">
+                        <i class="fa-solid fa-location-dot" style="color: #00ff0a;"></i>
+                        {{ profile.location }}
+                    </p>
+                    <p class="px-6 text-lg text-gray-900 dark:text-white">
+                        {{ profile.biography }}
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- /PROFILE CARD -->
+        <section>
+            <!-- TABS -->
+            <ul id="tabs" class="flex flex-wrap text-center text-sm font-medium text-gray-500 dark:text-gray-400">
+                <li class="me-2">
+                    <a href="#" class="inline-block rounded-lg bg-blue-600 px-4 py-3 text-white active"
+                       aria-current="page">
+                        Latest
+                    </a>
+                </li>
+                <li class="me-2">
+                    <a href="#"
+                       class="inline-block rounded-lg px-4 py-3 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white">
+                        Top Posts
+                    </a>
+                </li>
+                <li class="me-2">
+                    <a href="#"
+                       class="inline-block rounded-lg px-4 py-3 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white">
+                        Top Comments
+                    </a>
+                </li>
+                <li class="me-2">
+                    <a href="#"
+                       class="inline-block rounded-lg px-4 py-3 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white">
+                        Liked Posts
+                    </a>
+                </li>
+            </ul>
+            <!-- /TABS -->
+        </section>
+    </div>
+    <!-- Tab contents -->
+
+    <div class="flex flex-wrap justify-center mt-2.5">
+
+        <!-- card 1 -->
+        <div class="max-w-sm p-4">
+            <div class="flex h-full flex-col rounded-lg bg-teal-400 p-8 dark:bg-gray-800">
+                <div class="mb-3 flex items-center">
+                    <div
+                            class="mr-3 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-indigo-500 text-white dark:bg-indigo-500">
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-lg font-medium text-white dark:text-white">Feature 1</h2>
+                </div>
+                <div class="flex flex-grow flex-col justify-between">
+                    <p class="text-base leading-relaxed text-white dark:text-gray-300">
+                        Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice
+                        poutine.
+                    </p>
+                    <a href="#" class="mt-3 inline-flex items-center text-black hover:text-blue-600 dark:text-white">Learn
+                        More
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" class="ml-2 h-4 w-4" viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- card 2 -->
+        <div class="max-w-sm p-4">
+            <div class="flex h-full flex-col rounded-lg bg-teal-400 p-8 dark:bg-gray-800">
+                <div class="mb-3 flex items-center">
+                    <div
+                            class="mr-3 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-indigo-500 text-white dark:bg-indigo-500">
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-lg font-medium text-white dark:text-white">Feature 2</h2>
+                </div>
+                <div class="flex flex-grow flex-col justify-between">
+                    <p class="text-base leading-relaxed text-white dark:text-gray-300">
+                        Lorem ipsum dolor sit amet. In quos laboriosam non neque eveniet 33 nihil molestias. Rem
+                        perspiciatis iure ut laborum inventore et maxime amet.
+                    </p>
+                    <a href="#" class="mt-3 inline-flex items-center text-black hover:text-blue-600 dark:text-white">Learn
+                        More
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" class="ml-2 h-4 w-4" viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- card 3 -->
+        <div class="max-w-sm p-4">
+            <div class="flex h-full flex-col rounded-lg bg-teal-400 p-8 dark:bg-gray-800">
+                <div class="mb-3 flex items-center">
+                    <div
+                            class="mr-3 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-indigo-500 text-white dark:bg-indigo-500">
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-lg font-medium text-white dark:text-white">Feature 3</h2>
+                </div>
+                <div class="flex flex-grow flex-col justify-between">
+                    <p class="text-base leading-relaxed text-white dark:text-gray-300">
+                        Lorem ipsum dolor sit amet. In quos laboriosam non neque eveniet 33 nihil molestias. Rem
+                        perspiciatis iure ut laborum inventore et maxime amet.
+                    </p>
+                    <a href="#" class="mt-3 inline-flex items-center text-black hover:text-blue-600 dark:text-white">Learn
+                        More
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" class="ml-2 h-4 w-4" viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock content %}

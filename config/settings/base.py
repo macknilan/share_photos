@@ -94,11 +94,15 @@ DJANGO_APPS = [
     "django.forms",
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "django_cleanup.apps.CleanupConfig"
+]
 
 # LOCAL_APPS = ["apps.a_posts"]
 LOCAL_APPS = [
-    # My custom apps
     "apps.users",
     "apps.a_posts"
 ]
@@ -115,15 +119,18 @@ MIGRATION_MODULES = {"sites": "apps.contrib.sites.migrations"}
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
 AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
     "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by email
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-# LOGIN_REDIRECT_URL = "users:redirect"
+LOGIN_REDIRECT_URL = "/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-# LOGIN_URL = "account_login"
+LOGIN_URL = "account_login"
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -149,11 +156,13 @@ AUTH_PASSWORD_VALIDATORS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware"
 ]
 
 # STATIC
@@ -200,7 +209,6 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                'django.template.context_processors.request'
             ],
         },
     },
@@ -226,10 +234,7 @@ X_FRAME_OPTIONS = "DENY"
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = env(
-    "DJANGO_EMAIL_BACKEND",
-    default="django.core.mail.backends.smtp.EmailBackend",
-)
+EMAIL_BACKEND = env("DJANGO_EMAIL_BACKEND")
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
 EMAIL_TIMEOUT = 5
 
@@ -276,7 +281,25 @@ LOGGING = {
 
 # django-allauth
 # ------------------------------------------------------------------------------
-# TODO:
+# ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
+# https://docs.allauth.org/en/latest/account/configuration.html
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+# https://docs.allauth.org/en/latest/account/configuration.html
+ACCOUNT_EMAIL_REQUIRED = True
+# https://docs.allauth.org/en/latest/account/configuration.html
+ACCOUNT_USERNAME_REQUIRED = False
+# https://docs.allauth.org/en/latest/account/configuration.html
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+# https://docs.allauth.org/en/latest/account/configuration.html
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# https://docs.allauth.org/en/latest/account/configuration.html
+# ACCOUNT_ADAPTER = "sand_box.users.adapters.AccountAdapter"
+# https://docs.allauth.org/en/latest/account/forms.html
+# ACCOUNT_FORMS = {"signup": "sand_box.users.forms.UserSignupForm"}
+# https://docs.allauth.org/en/latest/socialaccount/configuration.html
+# SOCIALACCOUNT_ADAPTER = "sand_box.users.adapters.SocialAccountAdapter"
+# https://docs.allauth.org/en/latest/socialaccount/configuration.html
+# SOCIALACCOUNT_FORMS = {"signup": "sand_box.users.forms.UserSocialSignupForm"}
 
 
 # django-compressor

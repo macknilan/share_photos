@@ -10,14 +10,14 @@ django-celery-beat==2.5.0  # https://github.com/celery/django-celery-beat
 
 # Django
 # ------------------------------------------------------------------------------
-django==4.2.10  # pyup: < 5.0  # https://www.djangoproject.com/
+django<5.0  # pyup:  4.2.10  # https://www.djangoproject.com/
 django-environ==0.11.2  # https://github.com/joke2k/django-environ
 django-model-utils==4.3.1  # https://github.com/jazzband/django-model-utils
 django-allauth==0.61.1  # https://github.com/pennersr/django-allauth
 django-crispy-forms==2.1  # https://github.com/django-crispy-forms/django-crispy-forms
 django-compressor==4.4  # https://github.com/django-compressor/django-compressor
 django-redis==5.4.0  # https://github.com/jazzband/django-redis
-
+django-cleanup==8.1.0 # https://github.com/un1t/django-cleanup
 # my project stuff
 beautifulsoup4==4.12.2  # https://www.crummy.com/software/BeautifulSoup/
 requests==2.31.0  # https://github.com/psf/requests - https://requests.readthedocs.io/en/latest/

@@ -27,7 +27,7 @@
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">&nbsp{{ post.body }}</p>
                         <div class="mb-5 flex flex-wrap items-center">
                             {% for tag in post.tags.all %}
-                                <a href="{% url 'posts:category' tag.slug %}" class="inline-flex items-center justify-center rounded border border-blue-400 bg-blue-100 text-xs font-medium font-semibold text-blue-800 me-2 px-2.5 py-0.5 rounded-full hover:bg-blue-200 dark:bg-gray-700 dark:text-blue-400">{{ tag }}</a>
+                                <a href="{% url 'posts:category' tag.slug %}" class="inline-flex items-center justify-center rounded rounded-full border border-blue-400 bg-blue-100 text-xs font-medium font-semibold text-blue-800 me-2 px-2.5 py-0.5 hover:bg-blue-200 dark:bg-gray-700 dark:text-blue-400">{{ tag }}</a>
                             {% endfor %}
                         </div>
                         <div class="flex flex-wrap items-center justify-evenly px-2 text-sm sm:justify-between">

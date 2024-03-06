@@ -11,7 +11,7 @@
                         {% for category in categories %}
                             <ul class="text-left text-lg">
                                 <li class="flex items-center rounded-md py-3 space-x-3 px-2.5 hover:bg-neutral-100 {% if category.slug == tag.slug %}bg-neutral-200{% endif %}">
-                                    <img class="object-cover w-8 h-8" src="{{ category.image.url }}" alt="{{ category.name }}" title="{{ category.name }}"/>
+                                    <img class="h-8 w-8 object-cover" src="{{ category.image.url }}" alt="{{ category.name }}" title="{{ category.name }}"/>
                                     <a href="{% url 'posts:category' category.slug %}">{{ category.name }}</a>
                                 </li>
                             </ul>

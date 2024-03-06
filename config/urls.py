@@ -26,9 +26,11 @@ from apps.a_posts.views import home_view
 urlpatterns = (
     [
         # path(settings.ADMIN_URL, admin.site.urls),
-        path('admin/', admin.site.urls),
         path("", home_view, name="home"),
+        path('admin/', admin.site.urls),
+        path('accounts/', include('allauth.urls')),
         path("posts/", include("apps.a_posts.urls", namespace="posts")),
+        path("users/", include("apps.users.urls", namespace="users")),
     ]
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
