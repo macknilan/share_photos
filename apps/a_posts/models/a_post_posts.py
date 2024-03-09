@@ -1,16 +1,17 @@
 """ Model Post for the Blog """
 import uuid
 
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
-# Models
-from .a_post_tags import Tag
-
 # Utilities
 from apps.utils.models import TimeStampedModel
+
+# Models
+from .a_post_tags import Tag
 
 
 # https://docs.djangoproject.com/en/3.2/topics/db/managers/#modifying-a-manager-s-initial-queryset
@@ -36,6 +37,14 @@ class Post(TimeStampedModel):
     tags = models.ManyToManyField(Tag, verbose_name=_("tags for the post"))
     objects = models.Manager()  # The default manager
     published = PostLet()  # The Post Manager manager
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        db_column="author_id",
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="posts",
+        verbose_name=_("author of the post"),
+    )  # SE HACE LA RELACIÓN POR QUE EN SETTINGS SE HACE LA RELACIÓN DE AUTH_USER_MODEL
 
     class Meta(TimeStampedModel.Meta):
         """Overwrite meta class of TimeStampedModel"""

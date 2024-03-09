@@ -18,9 +18,9 @@
                         id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
                         data-dropdown-placement="bottom">
                     <span class="sr-only">Open user menu</span>
-                    <img class="h-8 w-8 rounded-full" src="{{ user.profile.picture.url }}"
-                         alt="{{ user.profile.real_name }}"
-                         title="{{ user.profile.real_name }}">
+                    <img class="h-8 w-8 rounded-full" src="{{ user.profile.avatar }}"
+                         alt="{{ user.profile.name }}"
+                         title="{{ user.profile.name }}">
                 </button>
                 <!-- Dropdown menu -->
                 <div class="z-50 my-4 hidden list-none rounded-lg bg-white text-base shadow divide-y divide-gray-100 dark:divide-gray-600 dark:bg-gray-700"

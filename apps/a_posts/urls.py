@@ -1,8 +1,11 @@
 from django.urls import path
 
-
 from apps.a_posts.views import (
-    home_view, post_create_view, post_delete_view, post_edit_view, post_detail_view
+    home_view,
+    post_create_view,
+    post_delete_view,
+    post_detail_view,
+    post_edit_view,
 )
 
 app_name = "a_posts"

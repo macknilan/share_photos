@@ -15,12 +15,25 @@
                         </a>
                     </figure>
                     <div class="p-5">
-                        <a class="mb-4 flex items-center gap-1" href="">
-                            <img class="h-8 w-8 rounded-full object-cover"
-                                 src="{% static "images/users/morty_01.png" %}" alt="" title="">
-                            <span class="font-bold hover:underline">Morty</span>
-                            <span class="text-sm text-gray-400">@morty_smith</span>
-                        </a>
+                        {% if post.author %}
+                            <a class="mb-4 flex items-center gap-1" href="{% url 'users:profile-user' post.author.username %}">
+                                <picture>
+                                    <img class="h-8 w-8 rounded-full object-cover"
+                                         src="{{ post.author.profile.avatar }}" alt="{{ post.author.profile.name }}" title="{{ post.author.profile.name }}">
+                                </picture>
+                                <span class="font-bold hover:underline"> {{ post.author.profile.name }} </span>
+                                <span class="text-sm text-gray-400"> @{{ post.author.username }} </span>
+                            </a>
+                        {% else %}
+                            <div class="mb-4 flex items-center gap-1">
+                                <picture>
+                                    <img class="h-8 w-8 rounded-full object-cover"
+                                         src="{% static 'images/users/default_avatar.png' %}" alt="No Name" title="No Name">
+                                </picture>
+                                <span class="font-bold hover:underline"> ة_ة </span>
+                                <span class="text-sm text-gray-400"> no author </span>
+                            </div>
+                        {% endif %}
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                             {{ post.title }}
                         </h5>
@@ -42,8 +55,10 @@
                                     </span>
                                 </div>
                                 <a href="">Like</a>
-                                <a href="{% url 'posts:post-edit' post.id %}" title="Edit post">Edit</a>
-                                <a href="{% url 'posts:post-delete' post.id %}" title="Delete post">Delete</a>
+                                {% if user.is_authenticated and post.author == user %}
+                                    <a href="{% url 'posts:post-edit' post.id %}" title="Edit post">Edit</a>
+                                    <a href="{% url 'posts:post-delete' post.id %}" title="Delete post">Delete</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

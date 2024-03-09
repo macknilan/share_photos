@@ -4,11 +4,10 @@
 
 from django import forms
 from django.contrib.auth import forms as admin_forms
-from django.forms import EmailField
+from django.forms import EmailField, ModelForm
 from django.utils.translation import gettext_lazy as _
-from django.forms import ModelForm
 
-from apps.users.models import User, Profile
+from apps.users.models import Profile, User
 
 
 class UserAdminChangeForm(admin_forms.UserChangeForm):

@@ -2,9 +2,10 @@
 
 # Django
 from django.db import models
+from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
-# from traitlets import default
 
+# from traitlets import default
 # Utilities
 from apps.utils.models import TimeStampedModel
 
@@ -30,7 +31,7 @@ class Profile(TimeStampedModel):
         blank=True,
         max_length=100,
         null=True,
-        upload_to="avatar/",
+        upload_to="avatar/"
     )
     biography = models.TextField(
         _("About your profile"),
@@ -62,3 +63,27 @@ class Profile(TimeStampedModel):
     def __str__(self):
         """Return user's str representation."""
         return str(self.user)
+
+    @property
+    def avatar(self):
+        """
+        SET DEFAULT AVATAR
+        """
+        try:
+            avatar = self.picture.url
+        except:
+            avatar = static('images/users/default_avatar.png')
+
+        return avatar
+
+    @property
+    def name(self):
+        """
+        SET DEFAULT REAL NAME
+        """
+        if self.real_name:
+            name = self.real_name
+        else:
+            name = self.user.username
+
+        return name

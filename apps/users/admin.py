@@ -10,9 +10,8 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 # from apps.users.forms import UserAdminChangeForm, UserAdminCreationForm
-
 # Models
-from apps.users.models import User, Profile
+from apps.users.models import Profile, User
 
 # User = get_user_model()
 
@@ -43,6 +42,7 @@ class UserAdmin(auth_admin.UserAdmin):
     )
 
     list_display = [
+        "id",
         "username",
         "email",
         "created_at",

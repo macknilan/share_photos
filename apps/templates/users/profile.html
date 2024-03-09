@@ -28,16 +28,26 @@
                     </div>
                 </div>
                 <div class="flex flex-col items-center pb-10">
-                    <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ profile.picture.url }}"
-                         alt="{{ profile.real_name }}"/>
+                    <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ profile.avatar }}"
+                         alt="{{ profile.name }}"/>
                     <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{ profile.real_name }}</h5>
                     <span class="text-sm text-gray-500 dark:text-gray-400">@{{ profile.user.username }}</span>
                     <p class="text-base text-gray-900 dark:text-white">
-                        <i class="fa-solid fa-location-dot" style="color: #00ff0a;"></i>
-                        {{ profile.location }}
+                        {% if profile.location %}
+                            <i class="fa-solid fa-location-dot" style="color: #00ff0a;"></i>
+                                {{ profile.location }}
+                        {% else %}
+                            <i class="fa-solid fa-map-location" style="color: #00ff0a;"></i>
+                                Planet Earth
+                        {% endif %}
                     </p>
                     <p class="px-6 text-lg text-gray-900 dark:text-white">
-                        {{ profile.biography }}
+                        {% if profile.biography %}
+                            {{ profile.biography }}
+                        {% else %}
+                            <i class="fa-solid fa-biohazard" style="color: #00ff0a;"></i>
+                            Professional procrastinator
+                        {% endif %}
                     </p>
                 </div>
             </div>

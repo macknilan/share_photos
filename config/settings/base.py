@@ -291,6 +291,43 @@ ACCOUNT_USERNAME_REQUIRED = False
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 # https://docs.allauth.org/en/latest/account/configuration.html
+ACCOUNT_USERNAME_BLACKLIST = [
+    "admin",
+    "superuser",
+    "user",
+    "users",
+    "account",
+    "accounts",
+    "signup",
+    "signout",
+    "signin",
+    "login",
+    "logout",
+    "password",
+    "passwords",
+    "password_reset",
+    "password_reset_done",
+    "password_reset_confirm",
+    "password_reset_complete",
+    "email",
+    "emails",
+    "home",
+    "about",
+    "contact",
+    "help",
+    "support",
+    "terms",
+    "privacy",
+    "cookies",
+    "cookie",
+    "legal",
+    "newuser",
+    "guest",
+    "profile",
+    "settings",
+    "dashboard"
+]
+# https://docs.allauth.org/en/latest/account/configuration.html
 # ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://docs.allauth.org/en/latest/account/configuration.html
 # ACCOUNT_ADAPTER = "sand_box.users.adapters.AccountAdapter"
