@@ -1,0 +1,109 @@
+{% extends "layouts/c.html" %}
+{% load static i18n %}
+
+
+{% block content %}
+    <!-- PROFILE EDIT CARD -->
+    <div class="flex justify-between">
+        <h1 class="mb-4 items-start text-xl font-bold text-gray-900 dark:text-white">
+            <i class="fa-solid fa-clipboard-list fa-lg"></i> Complete your Profile
+        </h1>
+    </div>
+    <section>
+        <div class="mx-auto mb-4 flex flex-col items-center gap-2.5">
+            <picture>
+                <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ user.profile.avatar }}"
+                     alt="{{ user.profile.real_name }}"/>
+            </picture>
+            <h5 id="realname"
+                class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{ user.profile.name }}</h5>
+            <span class="text-sm text-gray-500 dark:text-gray-400">@{{ user.username }}</span>
+            <p class="text-base text-gray-900 dark:text-white">
+                <i class="fa-solid fa-location-dot" style="color: #00ff0a;"></i>
+                {{ user.profile.location }}
+            </p>
+        </div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="flex flex-col gap-2.5">
+                <div class="flex flex-col gap-2">
+                    <label for="{{ form.picture.id_for_label }}"
+                           class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                        Upload image profile file
+                    </label>
+                    {{ form.picture }}
+                    {% if form.picture.errors %}
+                        <ol>
+                            {% for error in form.picture.errors %}
+                                <li class="mt-2 text-sm text-red-600 dark:text-red-500"><i
+                                        class="fa-sharp fa-solid fa-bomb"></i> {{ error|escape }}</li>
+                            {% endfor %}
+                        </ol>
+                    {% endif %}
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="{{ form.real_name.id_for_label }}"
+                           class="text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                    {{ form.real_name }}
+                    {% if form.real_name.errors %}
+                        <ol>
+                            {% for error in form.real_name.errors %}
+                                <li class="mt-2 text-sm text-red-600 dark:text-red-500"><i
+                                        class="fa-sharp fa-solid fa-bomb"></i> {{ error|escape }}</li>
+                            {% endfor %}
+                        </ol>
+                    {% endif %}
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="{{ form.email.id_for_label }}"
+                           class="text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <ol>
+                            {% for error in form.email.errors %}
+                                <li class="mt-2 text-sm text-red-600 dark:text-red-500"><i
+                                        class="fa-sharp fa-solid fa-bomb"></i> {{ error|escape }}</li>
+                            {% endfor %}
+                        </ol>
+                    {% endif %}
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="{{ form.location.id_for_label }}"
+                           class="text-sm font-medium text-gray-900 dark:text-white">Location</label>
+                    {{ form.location }}
+                    {% if form.location.errors %}
+                        <ol>
+                            {% for error in form.location.errors %}
+                                <li class="mt-2 text-sm text-red-600 dark:text-red-500"><i
+                                        class="fa-sharp fa-solid fa-bomb"></i> {{ error|escape }}</li>
+                            {% endfor %}
+                        </ol>
+                    {% endif %}
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="{{ form.biography.id_for_label }}"
+                           class="text-sm font-medium text-gray-900 dark:text-white">Biography</label>
+                    {{ form.biography }}
+                    {% if form.biography.errors %}
+                        <ol>
+                            {% for error in form.biography.errors %}
+                                <li class="mt-2 text-sm text-red-600 dark:text-red-500"><i
+                                        class="fa-sharp fa-solid fa-bomb"></i> {{ error|escape }}</li>
+                            {% endfor %}
+                        </ol>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="grid gap-6 py-3.5 md:grid-cols-2">
+                <button type="submit"
+                        class="w-full rounded-lg bg-blue-700 px-5 text-center text-sm font-medium text-white py-2.5 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 sm:w-auto dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Submit
+                </button>
+                <a class="ml-1 button secondaryAction" href="{{ request.META.HTTP_REFERER }}">Skip</a>
+            </div>
+        </form>
+    </section>
+    <!-- /PROFILE EDIT CARD -->
+{% endblock content %}
+
