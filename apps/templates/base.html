@@ -41,8 +41,44 @@
         <!-- {# Placed at the top of the document so pages load faster with defer #} -->
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
         <!-- My stuff: Third-party javascript libraries go here -->
-
         <script defer src="{% static "js/myjs.js" %}"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const Collapse = Flowbite.default.Collapse;
+
+                // NAVBAR
+                const $userMenuDropDown = document.getElementById('user-menu-drop-down');
+                const $userMenuDropDownTrigger = document.getElementById('user-menu-drop-down-trigger');
+                // optional options with default values and callback functions
+                const options = {
+                    onCollapse: () => {
+                        console.log('element has been collapsed');
+                    },
+                    onExpand: () => {
+                        console.log('element has been expanded');
+                    },
+                    onToggle: () => {
+                        console.log('element has been toggled');
+                    },
+                };
+                const instanceOptions = {
+                  id: 'userMenuDropDown',
+                  override: true
+                };
+                /*
+                 * $targetEl: required
+                 * $triggerEl: optional
+                 * options: optional
+                 */
+                const collapse = new Collapse($userMenuDropDown, $userMenuDropDownTrigger, options, instanceOptions);
+                // METHODS
+                collapse.expand();
+                collapse.collapse();
+                // NAVBAR
+            });
+        
+        </script>
+        
     {% endblock inline_javascript %}
 
 </body>

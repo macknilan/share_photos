@@ -5,8 +5,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
-from apps.a_posts.forms import PostCreateFrom, PostEditFrom
-from apps.a_posts.models import Post, Tag
+from apps.a_posts.forms import PostCreateFrom, PostEditFrom, CommentCreateForm, ReplyCommentCreateForm
+
+# MODELS
+from apps.a_posts.models import Post, Tag, Comment, Reply
 
 
 def home_view(request, tag=None):
@@ -103,15 +105,81 @@ def post_edit_view(request, pk):
 
 
 def post_detail_view(request, pk):
-    """DETAIL OF THE POST VIEW."""
+    """
+    DETAIL OF THE POST VIEW AND PRESENT THE FORM TO COMMENT
+    """
     post = get_object_or_404(Post, id=pk)
-    return render(request, "a_posts/post_detail.html", {"post": post})
+    comment_form = CommentCreateForm()
+    reply_comment_form = ReplyCommentCreateForm()
+
+    contex = {
+        "post": post,
+        "comment_form": comment_form,
+        "reply_comment_form": reply_comment_form
+    }
+
+    return render(request, "a_posts/post_detail.html", contex)
 
 
+@login_required
+def comment_create_view(request, pk):
+    """
+    VIEW TO CREATE A COMMENT
+    """
+    post = get_object_or_404(Post, id=pk)
+
+    if request.method == "POST":
+        form = CommentCreateForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.parent_post = post
+            comment.save()
+
+    return redirect("posts:post-detail", post.id)
 
 
+@login_required
+def reply_comment_create_view(request, pk):
+    """
+    VIEW TO CREATE A REPLAY FOR THE COMMENT
+    """
+    comment = get_object_or_404(Comment, id=pk)
+
+    if request.method == "POST":
+        form = ReplyCommentCreateForm(request.POST)
+        if form.is_valid():
+            replay = form.save(commit=False)
+            replay.author = request.user
+            replay.parent_comment = comment
+            replay.save()
+
+    return redirect("posts:post-detail", comment.parent_post.id)
 
 
+@login_required
+def comment_delete_view(request, pk):
+    """COMMENT DELETE VIEW."""
+    post = get_object_or_404(Comment, id=pk, author=request.user)
 
+    if request.method == "POST":
+        post.delete()
+        messages.success(request, "Comment deleted successfully")
+        return redirect("posts:post-detail", post.parent_post.id)
+
+    return render(request, "a_posts/comment_delete.html", {"comment": post})
+
+
+@login_required
+def replay_comment_delete_view(request, pk):
+    """REPLAY COMMENT DELETE VIEW."""
+    reply = get_object_or_404(Reply, id=pk, author=request.user)
+
+    if request.method == "POST":
+        reply.delete()
+        messages.success(request, "Reply deleted successfully")
+        return redirect("posts:post-detail", reply.parent_comment.parent_post.id)
+
+    return render(request, "a_posts/reply_delete.html", {"reply": reply})
 
 

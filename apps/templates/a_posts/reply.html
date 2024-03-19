@@ -1,0 +1,62 @@
+{% load static i18n %}
+
+        <section class="ml-5 rounded-lg bg-white px-0 text-base py-2.5 dark:bg-gray-900 lg:ml-12">
+            <footer class="mb-2 flex items-center justify-between">
+                <div class="flex flex-wrap items-center space-x-3.5">
+                    {% if reply.author %}
+                        <p class="mr-3 inline-flex items-center text-sm font-semibold text-gray-900 dark:text-white">
+                            <a href="{% url 'users:profile-user' reply.author.username %}">
+                                <picture>
+                                    <img
+                                            class="mr-2 h-6 w-6 rounded-full"
+                                            src="{{ reply.author.profile.avatar }}"
+                                            alt="{{ reply.author.profile.real_name }}">
+                                </picture>
+                            </a>
+                            {{ reply.author.profile.real_name }}
+                        </p>
+                        <p class="py-1 text-sm text-gray-600 dark:text-gray-400">
+                            @{{ reply.author.username }}&nbsp;
+                        </p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            <time pubdate datetime="{{ reply.created_at|date:"DATE_FORMAT" }}"
+                                  title="{{ reply.created_at|date:"DATE_FORMAT" }}">
+                                {{ reply.created_at|date:"DATE_FORMAT" }}
+                            </time>
+                        </p>
+                    {% else %}
+                        <p class="inline-flex items-center text-sm font-semibold text-gray-900 dark:text-white">
+                            <picture>
+                                <img class="mr-2 h-6 w-6 rounded-full"
+                                     src="{% static 'images/users/default_avatar.png' %}" alt="No Name" title="No Name">
+                            </picture>
+                        </p>
+                        <p class="py-1 text-sm text-gray-600 dark:text-gray-400">no author</p>
+                    {% endif %}
+                </div>
+            </footer>
+            <p class="py-2 text-gray-500 dark:text-gray-400">
+                {{ reply.body }}
+            </p>
+        
+            <div class="flex flex-wrap justify-between gap-2 md:grid-cols-2">
+                <div></div>
+                <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    <span><i class="fa-regular fa-heart"></i>&nbsp;1</span>
+                    <span class="hover:underline">Like</span>
+                    {% if user.is_authenticated and comment.author == user %}
+                        <span class="hover:underline">
+                            <a href="{% url 'posts:reply-comment-delete' reply.id %}"
+                               class="text-red-500 hover:underline dark:text-red-400">
+                                Delete
+                            </a>
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+        
+        </section>
+
+                    
+
+                    

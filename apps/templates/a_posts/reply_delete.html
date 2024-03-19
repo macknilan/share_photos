@@ -1,0 +1,89 @@
+{% extends "layouts/b.html" %}
+{% load static i18n %}
+
+
+{% block content %}
+
+    <div class="container mx-auto max-w-lg md:max-w-sm">
+        <section class="replyCommentContainer mb-4 grow rounded-lg border border-gray-200 bg-white py-5 antialiased shadow-xl dark:border-gray-700 dark:bg-gray-800 dark:bg-gray-900 md:max-w-sm md:grow-0 lg:max-w-xl lg:py-5">
+            <div class="mx-auto max-w-2xl px-4">
+                <section class="rounded-lg bg-white p-3 text-base dark:bg-gray-900">
+                    <footer class="mb-2 flex items-center justify-between">
+                        <div class="flex flex-wrap items-center space-x-3.5">
+                            {% if reply.author %}
+                                <p class="mr-3 inline-flex items-center text-sm font-semibold text-gray-900 dark:text-white">
+                                    <a href="{% url 'users:profile-user' reply.author.username %}">
+                                        <picture>
+                                            <img
+                                                    class="mr-2 h-6 w-6 rounded-full"
+                                                    src="{{ reply.author.profile.avatar }}"
+                                                    alt="{{ reply.author.profile.real_name }}">
+                                        </picture>
+                                    </a>
+                                    {{ reply.author.profile.real_name }}
+                                </p>
+                                <p class="py-1 text-sm text-gray-600 dark:text-gray-400">
+                                    @{{ reply.author.username }}&nbsp;
+                                </p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <time pubdate datetime="{{ reply.created_at|date:"DATE_FORMAT" }}"
+                                          title="{{ reply.created_at|date:"DATE_FORMAT" }}">
+                                        {{ reply.created_at|date:"DATE_FORMAT" }}
+                                    </time>
+                                </p>
+                            {% else %}
+                                <p class="inline-flex items-center text-sm font-semibold text-gray-900 dark:text-white">
+                                    <picture>
+                                        <img class="mr-2 h-6 w-6 rounded-full"
+                                             src="{% static 'images/users/default_avatar.png' %}" alt="No Name" title="No Name">
+                                    </picture>
+                                </p>
+                                <p class="py-1 text-sm text-gray-600 dark:text-gray-400">no author</p>
+                            {% endif %}
+                        </div>
+                    </footer>
+                    <p class="py-2 text-gray-500 dark:text-gray-400">
+                        {{ reply.body }}
+                    </p>
+                
+                    <div class="flex flex-wrap justify-between gap-2 md:grid-cols-2">
+                        <div></div>
+                        <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            <span><i class="fa-regular fa-heart"></i>&nbsp;1</span>
+                            <span class="hover:underline">Like</span>
+                            {% if user.is_authenticated and comment.author == user %}
+                                <span class="hover:underline">
+                                    <a href="{% url 'posts:reply-comment-delete' reply.id %}"
+                                       class="text-red-500 hover:underline dark:text-red-400">
+                                        Delete
+                                    </a>
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <div class="bg-white p-4 text-center dark:bg-gray-800 sm:p-5">
+            <i class="fa-regular fa-trash-can fa-2xl" style="color: #ff0000;"></i>
+            <p class="mb-4 pt-4 text-gray-500 dark:text-gray-300">Are you sure you want to delete this replay?</p>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="grid gap-6 py-3.5 md:grid-cols-2">
+                    <button type="button"
+                            class="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:ring-primary-300 focus:z-10 focus:outline-none focus:ring-4 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-600">
+                        <a href="{{ request.META.HTTP_REFERER }}">No, cancel</a>
+                    </button>
+                    <button type="submit"
+                            class="rounded-lg bg-red-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                        Yes, delete
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+{% endblock content %}

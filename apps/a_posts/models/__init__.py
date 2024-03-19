@@ -1,2 +1,4 @@
-from .a_post_posts import *
-from .a_post_tags import *
+from .posts import Post
+from .tags import Tag
+from .comments import Comment
+from .replies import Reply

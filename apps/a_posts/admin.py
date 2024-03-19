@@ -3,12 +3,12 @@
 from django.contrib import admin
 
 # Models
-from apps.a_posts.models import Post, Tag
+from apps.a_posts.models import Post, Tag, Comment, Reply
 
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    """Profile model admin"""
+    """PROFILE MODEL ADMIN"""
 
     list_display = [
         "id",
@@ -38,7 +38,7 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    """Tag model admin"""
+    """TAG MODEL ADMIN"""
 
     list_display = [
         "id",
@@ -79,4 +79,96 @@ class TagAdmin(admin.ModelAdmin):
     list_filter = [
         "created_at",
         "updated_at",
+    ]
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    """COMMENT MODEL ADMIN"""
+    list_display = [
+        "id",
+        "author",
+        "parent_post",
+        "body",
+    ]
+    search_fields = [
+        "author",
+        "parent_post",
+    ]
+    list_display_links = [
+        "id",
+        "author",
+    ]
+    list_editable = [
+        "body",
+    ]
+    list_filter = [
+        "created_at",
+        "updated_at",
+    ]
+    fieldsets = (
+        (
+            "Comment",
+            {
+                "fields": (
+                    "author",
+                    "parent_post",
+                    "body",
+                )
+            },
+        ),
+    )
+    readonly_fields = [
+        "created_at",
+        "updated_at",
+    ]
+    ordering = [
+        "-created_at"
+    ]
+
+
+@admin.register(Reply)
+class ReplyAdmin(admin.ModelAdmin):
+    """
+    REPLY MODEL ADMIN
+    """
+    list_display = [
+        "id",
+        "author",
+        "parent_comment",
+        "body",
+    ]
+    search_fields = [
+        "author",
+        "parent_comment",
+    ]
+    list_display_links = [
+        "id",
+        "author",
+    ]
+    list_editable = [
+        "body",
+    ]
+    list_filter = [
+        "created_at",
+        "updated_at",
+    ]
+    fieldsets = (
+        (
+            "Comment",
+            {
+                "fields": (
+                    "author",
+                    "parent_comment",
+                    "body",
+                )
+            },
+        ),
+    )
+    readonly_fields = [
+        "created_at",
+        "updated_at",
+    ]
+    ordering = [
+        "-created_at"
     ]

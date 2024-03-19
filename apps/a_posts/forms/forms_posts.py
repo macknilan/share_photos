@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.forms import ModelForm, Textarea, TextInput
 from django.utils.translation import gettext_lazy as _
 
-from apps.a_posts.models import Post
+from apps.a_posts.models import Post, Comment, Reply
 
 
 class PostCreateFrom(ModelForm):
@@ -92,3 +92,48 @@ class PostEditFrom(ModelForm):
             },
         }
 
+
+class CommentCreateForm(ModelForm):
+    """
+    FORM FOR THE FORM TO CREATE A COMMENT
+    """
+    class Meta:
+        model = Comment
+        fields = [
+            "body",
+        ]
+        labels = {
+            "body": _(""),
+        }
+        widgets = {
+            "body": forms.Textarea(attrs={"id": "comment", "required": True, "placeholder": "write a comment ..", "rows": 2, "maxlenght": "150", "class": "w-full border-0 bg-white px-0 text-sm text-gray-900 focus:ring-0 dark:placeholder-gray-400 dark:bg-gray-800 dark:text-white"}),
+        }
+        error_messages = {
+            "body": {
+                "required": _("Your comment is required"),
+                "max_length": _("Biography must be 150 characters or less"),
+            },
+        }
+
+
+class ReplyCommentCreateForm(ModelForm):
+    """
+    FORM FOR THE FORM TO CREATE A REPLY COMMENT
+    """
+    class Meta:
+        model = Reply
+        fields = [
+            "body",
+        ]
+        labels = {
+            "body": _(""),
+        }
+        widgets = {
+            "body": forms.Textarea(attrs={"id": "comment", "required": True, "placeholder": "add your comment ..", "rows": 1, "maxlenght": "150", "class": "block w-full rounded-lg border border-gray-300 bg-gray-50 p-4 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:placeholder-gray-400 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"}),
+        }
+        error_messages = {
+            "body": {
+                "required": _("Your comment is required"),
+                "max_length": _("The comment must be 150 characters or less"),
+            },
+        }

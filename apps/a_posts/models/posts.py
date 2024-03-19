@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from apps.utils.models import TimeStampedModel
 
 # Models
-from .a_post_tags import Tag
+from .tags import Tag
 
 
 # https://docs.djangoproject.com/en/3.2/topics/db/managers/#modifying-a-manager-s-initial-queryset

@@ -1,6 +1,10 @@
 from django.urls import path
 
-from apps.users.views import profile_delete_view, profile_edit_view, profile_view
+from apps.users.views import (
+    profile_delete_view,
+    profile_edit_view,
+    profile_view
+)
 
 app_name = "users"
 urlpatterns = [
