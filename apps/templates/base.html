@@ -11,8 +11,12 @@
     <meta name="author" content="Rodolfo"/>
 
     <title>{% block title %}Django + Tailwind CSS + Flowbite{% endblock title %}</title>
-    <script src="https://kit.fontawesome.com/6f83d1d3e1.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" type="image/png" href="{% static "images/favicons/favicon.ico" %}">
+    <script defer src="https://kit.fontawesome.com/6f83d1d3e1.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script defer src="https://unpkg.com/htmx.org@1.9.11" integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0" crossorigin="anonymous"></script>
+    <!-- My stuff: Third-party javascript libraries go here -->
+    <script defer src="{% static "js/myjs.js" %}"></script>
 
     {% compress css %}
         <link rel="stylesheet" href="{% static "src/output.css" %}">
@@ -38,10 +42,6 @@
     </main>
 
     {% block inline_javascript %}
-        <!-- {# Placed at the top of the document so pages load faster with defer #} -->
-        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-        <!-- My stuff: Third-party javascript libraries go here -->
-        <script defer src="{% static "js/myjs.js" %}"></script>
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', (event) => {
                 const Collapse = Flowbite.default.Collapse;
@@ -78,7 +78,6 @@
             });
         
         </script>
-        
     {% endblock inline_javascript %}
 
 </body>

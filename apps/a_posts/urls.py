@@ -9,7 +9,8 @@ from apps.a_posts.views import (
     comment_create_view,
     comment_delete_view,
     reply_comment_create_view,
-    replay_comment_delete_view
+    replay_comment_delete_view,
+    like_post_view
 )
 
 app_name = "a_posts"
@@ -19,6 +20,7 @@ urlpatterns = [
     path("delete/<pk>/", post_delete_view, name="post-delete"),
     path("edit/<pk>/", post_edit_view, name="post-edit"),
     path("detail/<pk>/", post_detail_view, name="post-detail"),
+    path("like/<pk>/", like_post_view, name="post-like"),
     path("comment/sent/<pk>/", comment_create_view, name="post-comment-create"),
     path("comment/delete/<pk>/", comment_delete_view, name="post-comment-delete"),
     path("reply/sent/<pk>/", reply_comment_create_view, name="post-reply-comment-create"),

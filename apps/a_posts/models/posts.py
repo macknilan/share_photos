@@ -1,4 +1,4 @@
-""" Model Post for the Blog """
+""" MODEL POST FOR THE BLOG """
 import uuid
 
 from django.conf import settings
@@ -45,6 +45,11 @@ class Post(TimeStampedModel):
         related_name="posts",
         verbose_name=_("author of the post"),
     )  # SE HACE LA RELACIÓN POR QUE EN SETTINGS SE HACE LA RELACIÓN DE AUTH_USER_MODEL
+    likes = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name="liked_posts",
+        through="LikedPost"
+    )
 
     class Meta(TimeStampedModel.Meta):
         """Overwrite meta class of TimeStampedModel"""

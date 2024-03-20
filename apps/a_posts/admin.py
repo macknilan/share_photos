@@ -3,7 +3,7 @@
 from django.contrib import admin
 
 # Models
-from apps.a_posts.models import Post, Tag, Comment, Reply
+from apps.a_posts.models import Post, Tag, Comment, Reply, LikedPost
 
 
 @admin.register(Post)
@@ -161,6 +161,51 @@ class ReplyAdmin(admin.ModelAdmin):
                     "author",
                     "parent_comment",
                     "body",
+                )
+            },
+        ),
+    )
+    readonly_fields = [
+        "created_at",
+        "updated_at",
+    ]
+    ordering = [
+        "-created_at"
+    ]
+
+
+@admin.register(LikedPost)
+class LikedPostAdmin(admin.ModelAdmin):
+    """
+    LIKED POST MODEL ADMIN
+    """
+    list_display = [
+        "id",
+        "user",
+        "post",
+    ]
+    search_fields = [
+        "user",
+        "post",
+    ]
+    list_display_links = [
+        "id",
+        "user",
+    ]
+    list_editable = [
+        "post",
+    ]
+    list_filter = [
+        "created_at",
+        "updated_at",
+    ]
+    fieldsets = (
+        (
+            "Liked Post",
+            {
+                "fields": (
+                    "user",
+                    "post",
                 )
             },
         ),

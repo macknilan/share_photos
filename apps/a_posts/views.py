@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from apps.a_posts.forms import PostCreateFrom, PostEditFrom, CommentCreateForm, ReplyCommentCreateForm
@@ -182,4 +183,20 @@ def replay_comment_delete_view(request, pk):
 
     return render(request, "a_posts/reply_delete.html", {"reply": reply})
 
+
+def like_post_view(request, pk):
+    """
+    VIEW TO LIKE A POST
+    """
+    post = get_object_or_404(Post, id=pk)
+    # REMOVE LIKE IF THE USER CLICK AGAIN THE LIKE BUTTON
+    like_user_exists = post.likes.filter(email=request.user.email).exists()
+
+    if post.author != request.user:
+        if like_user_exists:
+            post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user)
+
+    return render(request, "snippets/likes.html", {"post": post})
 
