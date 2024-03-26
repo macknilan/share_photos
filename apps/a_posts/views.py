@@ -184,19 +184,49 @@ def replay_comment_delete_view(request, pk):
     return render(request, "a_posts/reply_delete.html", {"reply": reply})
 
 
-def like_post_view(request, pk):
+def like_toggle(model):
+    def inner_func(func):
+        def wrapper(request, *args, **kwargs):
+            post = get_object_or_404(model, id=kwargs.get("pk"))
+            # REMOVE LIKE IF THE USER CLICK AGAIN THE LIKE BUTTON
+            like_user_exists = post.likes.filter(email=request.user.email).exists()
+
+            if post.author != request.user:
+                if like_user_exists:
+                    post.likes.remove(request.user)
+                else:
+                    post.likes.add(request.user)
+
+            return func(request, post)
+
+        return wrapper
+
+    return inner_func
+
+
+@login_required
+@like_toggle(Post)
+def like_post_view(request, post):
     """
     VIEW TO LIKE A POST
     """
-    post = get_object_or_404(Post, id=pk)
-    # REMOVE LIKE IF THE USER CLICK AGAIN THE LIKE BUTTON
-    like_user_exists = post.likes.filter(email=request.user.email).exists()
-
-    if post.author != request.user:
-        if like_user_exists:
-            post.likes.remove(request.user)
-        else:
-            post.likes.add(request.user)
-
     return render(request, "snippets/likes.html", {"post": post})
+
+
+@login_required
+@like_toggle(Comment)
+def like_comment_view(request, post):
+    """
+    VIEW TO LIKE A COMMENT
+    """
+    return render(request, "snippets/likes_comments.html", {"comment": post})
+
+
+@login_required
+@like_toggle(Reply)
+def like_reply_comment_view(request, post):
+    """
+    VIEW TO LIKE A COMMENT
+    """
+    return render(request, "snippets/likes_reply_comments.html", {"reply": post})
 

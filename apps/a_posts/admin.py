@@ -3,7 +3,15 @@
 from django.contrib import admin
 
 # Models
-from apps.a_posts.models import Post, Tag, Comment, Reply, LikedPost
+from apps.a_posts.models import (
+    Post,
+    Tag,
+    Comment,
+    Reply,
+    LikedPost,
+    LikedComment,
+    LikedRepliesComment
+)
 
 
 @admin.register(Post)
@@ -206,6 +214,96 @@ class LikedPostAdmin(admin.ModelAdmin):
                 "fields": (
                     "user",
                     "post",
+                )
+            },
+        ),
+    )
+    readonly_fields = [
+        "created_at",
+        "updated_at",
+    ]
+    ordering = [
+        "-created_at"
+    ]
+
+
+@admin.register(LikedComment)
+class LikedCommentAdmin(admin.ModelAdmin):
+    """
+    LIKED COMMENT MODEL ADMIN
+    """
+    list_display = [
+        "id",
+        "user",
+        "comment",
+    ]
+    search_fields = [
+        "user",
+        "comment",
+    ]
+    list_display_links = [
+        "id",
+        "user",
+    ]
+    list_editable = [
+        "comment",
+    ]
+    list_filter = [
+        "created_at",
+        "updated_at",
+    ]
+    fieldsets = (
+        (
+            "Liked Comment",
+            {
+                "fields": (
+                    "user",
+                    "comment",
+                )
+            },
+        ),
+    )
+    readonly_fields = [
+        "created_at",
+        "updated_at",
+    ]
+    ordering = [
+        "-created_at"
+    ]
+
+
+@admin.register(LikedRepliesComment)
+class LikedRepliesCommentAdmin(admin.ModelAdmin):
+    """
+    LIKED REPLY COMMENT MODEL ADMIN
+    """
+    list_display = [
+        "id",
+        "user",
+        "reply",
+    ]
+    search_fields = [
+        "user",
+        "reply",
+    ]
+    list_display_links = [
+        "id",
+        "user",
+    ]
+    list_editable = [
+        "reply",
+    ]
+    list_filter = [
+        "created_at",
+        "updated_at",
+    ]
+    fieldsets = (
+        (
+            "Liked Reply Comment",
+            {
+                "fields": (
+                    "user",
+                    "reply",
                 )
             },
         ),

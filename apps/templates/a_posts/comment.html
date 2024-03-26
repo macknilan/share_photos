@@ -1,50 +1,51 @@
 {% load static i18n %}
 
-        <section
-                class="replyCommentContainer mb-4 grow rounded-lg border border-gray-200 bg-white py-5 antialiased shadow-xl dark:border-gray-700 dark:bg-gray-800 dark:bg-gray-900 md:max-w-sm md:grow-0 lg:max-w-xl lg:py-5">
-            <div class="mx-auto max-w-2xl px-4">
-                <!-- TEXT AREA COMMENT --->
-                <section class="rounded-lg bg-white p-3 text-base dark:bg-gray-900">
-                    <footer>
-                        <div class="flex flex-wrap items-center space-x-3.5">
-                            {% if comment.author %}
-                                <p class="inline-flex items-center text-sm font-semibold text-gray-900 dark:text-white">
-                                    <a href="{% url 'users:profile-user' comment.author.username %}">
-                                        <picture>
-                                            <img
-                                                    class="mr-2 h-6 w-6 rounded-full"
-                                                    src="{{ comment.author.profile.avatar }}"
-                                                    alt="{{ comment.author.profile.real_name }}">
-                                        </picture>
-                                    </a>
-                                    {{ comment.author.profile.real_name }}
-                                </p>
-                                <p class="py-1 text-sm text-gray-600 dark:text-gray-400">
-                                    @{{ comment.author.username }}
-                                </p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">
-                                    <time pubdate datetime="{{ comment.created_at|date:"DATE_FORMAT" }}"
-                                          title="{{ comment.created_at|date:"DATE_FORMAT" }}">
-                                        {{ comment.created_at|date:"DATE_FORMAT" }}
-                                    </time>
-                                </p>
-                            {% else %}
-                                <p class="inline-flex items-center text-sm font-semibold text-gray-900 dark:text-white">
+    <section
+            class="mb-4 grow rounded-lg border border-gray-200 bg-white py-5 antialiased shadow-xl replyCommentContainer dark:border-gray-700 dark:bg-gray-800 dark:bg-gray-900 md:max-w-sm md:grow-0 lg:max-w-xl lg:py-5">
+        <div class="mx-auto max-w-2xl px-4">
+            <!-- TEXT AREA COMMENT --->
+            <section class="rounded-lg bg-white p-3 text-base dark:bg-gray-900">
+                <footer>
+                    <div class="flex flex-wrap items-center space-x-3.5">
+                        {% if comment.author %}
+                            <p class="inline-flex items-center text-sm font-semibold text-gray-900 dark:text-white">
+                                <a href="{% url 'users:profile-user' comment.author.username %}">
                                     <picture>
-                                        <img class="mr-2 h-6 w-6 rounded-full"
-                                             src="{% static 'images/users/default_avatar.png' %}" alt="No Name" title="No Name">
+                                        <img
+                                                class="mr-2 h-6 w-6 rounded-full"
+                                                src="{{ comment.author.profile.avatar }}"
+                                                alt="{{ comment.author.profile.real_name }}">
                                     </picture>
-                                </p>
-                                <p class="py-1 text-sm text-gray-600 dark:text-gray-400">no author</p>
-                            {% endif %}
-                        </div>
-                    </footer>
-                    <p class="py-2 text-gray-500 dark:text-gray-400">
-                        {{ comment.body }}
-                    </p>
-                    <div class="flex flex-wrap justify-between gap-2 md:grid-cols-2">
+                                </a>
+                                {{ comment.author.profile.real_name }}
+                            </p>
+                            <p class="py-1 text-sm text-gray-600 dark:text-gray-400">
+                                @{{ comment.author.username }}
+                            </p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                <time pubdate datetime="{{ comment.created_at|date:"DATE_FORMAT" }}"
+                                      title="{{ comment.created_at|date:"DATE_FORMAT" }}">
+                                    {{ comment.created_at|date:"DATE_FORMAT" }}
+                                </time>
+                            </p>
+                        {% else %}
+                            <p class="inline-flex items-center text-sm font-semibold text-gray-900 dark:text-white">
+                                <picture>
+                                    <img class="mr-2 h-6 w-6 rounded-full"
+                                         src="{% static 'images/users/default_avatar.png' %}" alt="No Name" title="No Name">
+                                </picture>
+                            </p>
+                            <p class="py-1 text-sm text-gray-600 dark:text-gray-400">no author</p>
+                        {% endif %}
+                    </div>
+                </footer>
+                <p class="py-2 text-gray-500 dark:text-gray-400">
+                    {{ comment.body }}
+                </p>
+                <div class="flex flex-row items-center justify-between">
+                    <div class="basis-1/4">
                         <button type="button"
-                                class="replyButton text-sm font-medium text-gray-500 hover:underline dark:text-gray-400">
+                                class="text-sm font-medium text-gray-500 replyButton hover:underline dark:text-gray-400">
                             {% if comment.replies.count %}
                                 <i class="fa-solid fa-comment-dots fa-flip-horizontal" style="color: #74C0FC;"></i>
                                 Replies<span>&nbsp;{{ comment.replies.count }}</span>
@@ -55,46 +56,48 @@
                                 {% endif %}
                             {% endif %}
                         </button>
-                        <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                            <span><i class="fa-regular fa-heart"></i>&nbsp;1</span>
-                            <span class="hover:underline">Like</span>
-                            {% if user.is_authenticated and comment.author == user %}
-                                <span class="hover:underline">
-                                    <a href="{% url 'posts:post-comment-delete' comment.id %}"
-                                    class="text-red-500 hover:underline dark:text-red-400">
-                                        Delete
-                                    </a>
-                                </span>
-                            {% endif %}
-                        </div>
                     </div>
-
-                    <form method="POST" class="replyForm hidden" autocomplete="off" action="{% url 'posts:post-reply-comment-create' comment.id %}">
-                        {% csrf_token %}
-                        <div class="relative pt-2">
-                            <label for="{{ reply_comment_form.id_for_label }}"></label>
-                            {{ reply_comment_form.body }}
-                            {% if reply_comment_form.body.errors %}
-                                <ol>
-                                    {% for error in reply_comment_form.body.errors %}
-                                        <li class="mt-2 text-sm text-red-600 dark:text-red-500"><i
-                                                class="fa-sharp fa-solid fa-bomb"></i> {{ error|escape }}</li>
-                                    {% endfor %}
-                                </ol>
-                            {% endif %}
-                            <button type="submit"
-                                    class="absolute rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white end-2.5 bottom-2.5 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                Submit
-                            </button>
-                        </div>
-                    </form>
-
-                    {% for reply in comment.replies.all %}
-                        {% include "a_posts/reply.html" %}
-                    {% endfor %}
-                </section>
-
-                <!-- /TEXT AREA COMMENT --->
-
-            </div>
-        </section>
+    
+                    <div class="basis-3/5"></div>
+    
+                    <div class="flex basis-1/3 flex-wrap items-center justify-end gap-1.5">
+    
+                        {% include "snippets/likes_comments.html" %}
+    
+                        {% if user.is_authenticated and comment.author == user %}
+                            <span class="hover:underline">
+                                        <a href="{% url 'posts:post-comment-delete' comment.id %}"
+                                           class="text-red-500 hover:underline dark:text-red-400">
+                                            Delete
+                                        </a>
+                                    </span>
+                        {% endif %}
+                    </div>
+                </div>
+                <form method="POST" class="hidden replyForm" autocomplete="off"
+                      action="{% url 'posts:post-reply-comment-create' comment.id %}">
+                    {% csrf_token %}
+                    <div class="relative pt-2">
+                        <label for="{{ reply_comment_form.id_for_label }}"></label>
+                        {{ reply_comment_form.body }}
+                        {% if reply_comment_form.body.errors %}
+                            <ol>
+                                {% for error in reply_comment_form.body.errors %}
+                                    <li class="mt-2 text-sm text-red-600 dark:text-red-500"><i
+                                            class="fa-sharp fa-solid fa-bomb"></i> {{ error|escape }}</li>
+                                {% endfor %}
+                            </ol>
+                        {% endif %}
+                        <button type="submit"
+                                class="absolute rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white end-2.5 bottom-2.5 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+                {% for reply in comment.replies.all %}
+                    {% include "a_posts/reply.html" %}
+                {% endfor %}
+            </section>
+            <!-- /TEXT AREA COMMENT --->
+        </div>
+    </section>

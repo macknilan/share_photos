@@ -3,22 +3,22 @@
     
     <div class="flex flex-wrap items-center justify-end gap-1.5">
         <span>
-            {% if post.likes.count %}
-                {% if user in post.likes.all %}
+            {% if reply.likes.count %}
+                {% if user in reply.likes.all %}
                     <i class="fa-solid fa-heart fa-lg" style="color: #ff0000;"></i>
                 {% else %}
                     <i class="fa-regular fa-heart"></i>
                 {% endif %}
-                {{ post.likes.count }}
+                {{ reply.likes.count }}
             {% endif %}
         </span>
-        {% if user.is_authenticated and post.author != user %}
-            <a hx-get="{% url 'posts:post-like' post.id %}" class="cursor-pointer"
+        {% if user.is_authenticated and reply.author != user %}
+            <a hx-get="{% url 'posts:reply-like' reply.id %}" class="font-bold cursor-pointer"
                 hx-target="closest div"
                hx-swap="outerHTML"
             >
-                {% if user in post.likes.all %}
-                    <b>Liked</b>
+                {% if user in reply.likes.all %}
+                    Liked
                 {% else %}
                     Like
             </a>

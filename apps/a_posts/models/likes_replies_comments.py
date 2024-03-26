@@ -1,4 +1,4 @@
-""" MODEL LIKES FOR THE POSTS """
+""" MODEL FOR THE REPLIES LIKES IN COMMENTS """
 
 from django.conf import settings
 from django.db import models
@@ -8,23 +8,23 @@ from django.utils.translation import gettext_lazy as _
 from apps.utils.models import TimeStampedModel
 
 # Models
-from apps.a_posts.models import Post
+from apps.a_posts.models import Reply
 
 
-class LikedPost(TimeStampedModel):
-    """LIKED POST MODEL FOR THE POSTS"""
+class LikedRepliesComment(TimeStampedModel):
+    """MODEL FOR THE REPLIES LIKES IN COMMENTS"""
 
-    post = models.ForeignKey(
-        Post,
+    reply = models.ForeignKey(
+        Reply,
         on_delete=models.CASCADE,
-        related_name="liked_post",
-        verbose_name=_("post liked")
+        related_name="liked_reply_comments",
+        verbose_name=_("liked reply comments")
     )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="user_liked_post",
-        verbose_name=_("user who liked the post")
+        related_name="user_liked_reply_comment",
+        verbose_name=_("user who liked the reply comment")
     )
 
     class Meta(TimeStampedModel.Meta):
@@ -33,10 +33,10 @@ class LikedPost(TimeStampedModel):
         ordering = [
             "-created_at"
         ]
-        db_table = "liked_post_info"
+        db_table = "liked_reply_comment_info"
 
     def __str__(self):
         """RETURN NAME."""
-        return f"{self.user.username} - {self.post.title[:30]}"
+        return f"{self.user.username} - {self.reply.body[:30]}"
 
 

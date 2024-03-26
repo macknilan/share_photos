@@ -31,6 +31,11 @@ class Reply(TimeStampedModel):
         verbose_name=_("comment of the reply")
     )
     body = models.CharField(_("comment"), max_length=150)
+    likes = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name="liked_reply_comments",
+        through="LikedRepliesComment"
+    )
     id = models.CharField(
         max_length=100,
         default=uuid.uuid4,
