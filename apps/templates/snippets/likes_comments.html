@@ -1,7 +1,7 @@
 {% load static i18n %}
 
     
-    <div class="flex flex-wrap items-center justify-end gap-1.5">
+    <div id="like-comment-{{ comment.id }}" class="flex flex-wrap items-center justify-end gap-1.5">
         <span>
             {% if comment.likes.count %}
                 {% if user in comment.likes.all %}
@@ -13,15 +13,15 @@
             {% endif %}
         </span>
         {% if user.is_authenticated and comment.author != user %}
-            <a hx-get="{% url 'posts:comment-like' comment.id %}" class="font-bold cursor-pointer"
-                hx-target="closest div"
+            <span hx-get="{% url 'posts:comment-like' comment.id %}" class="font-bold cursor-pointer"
+                hx-target="#like-comment-{{ comment.id }}"
                hx-swap="outerHTML"
             >
                 {% if user in comment.likes.all %}
                     Liked
                 {% else %}
                     Like
-            </a>
+            </span>
             {% endif %}    
         {% endif %}
     </div>

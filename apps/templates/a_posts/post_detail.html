@@ -47,17 +47,18 @@
         
         <!-- /COMMENTS -->
     </article>
+    
 
 {% endblock content %}
 
 {% block inline_javascript %}
-     {{ block.super }} 
+     {{ block.super }}
     <script type="text/javascript">
         // document.addEventListener('DOMContentLoaded', (event) => {
             // // Import the Dropdown from Flowbite
             // const Dropdown = Flowbite.default.Dropdown;
         // });
-        
+
         let replyContainers = document.querySelectorAll('.replyCommentContainer');
         replyContainers.forEach((container) => {
             let button = container.querySelector('.replyButton');
@@ -69,7 +70,7 @@
                 });
             }
         });
-        
+
     </script>
 {% endblock inline_javascript %}
 

@@ -1,7 +1,7 @@
 {% load static i18n %}
 
     
-    <div class="flex flex-wrap items-center justify-end gap-1.5">
+    <div id="like-post-{{ post.id }}" class="flex flex-wrap items-center justify-end gap-1.5">
         <span>
             {% if post.likes.count %}
                 {% if user in post.likes.all %}
@@ -13,15 +13,15 @@
             {% endif %}
         </span>
         {% if user.is_authenticated and post.author != user %}
-            <a hx-get="{% url 'posts:post-like' post.id %}" class="cursor-pointer"
-                hx-target="closest div"
+            <span hx-get="{% url 'posts:post-like' post.id %}" class="cursor-pointer"
+                hx-target="#like-post-{{ post.id }}"
                hx-swap="outerHTML"
             >
                 {% if user in post.likes.all %}
                     <b>Liked</b>
                 {% else %}
                     Like
-            </a>
-            {% endif %}    
+            </span>
+            {% endif %}
         {% endif %}
     </div>
