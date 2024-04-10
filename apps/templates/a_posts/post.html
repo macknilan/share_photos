@@ -48,7 +48,7 @@
                                 <div class="basis-1/4">
                                     <a class="font-bold hover:underline" href="{% url 'posts:post-detail' post.id %}" title="post.title">
                                         {% if post.comments.count %}
-                                            Comments<span class="ml-1 font-semibold text-gray-500">{{ post.comments.count }}</span>
+                                            Comments<span id="comment-count-{{ post.id }}" class="ml-1 font-semibold text-gray-500">{{ post.comments.count }}</span>
                                         {% else %}
                                             {% if user.is_authenticated %}
                                                 Add Comment

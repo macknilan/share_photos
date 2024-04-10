@@ -128,6 +128,8 @@ def comment_create_view(request, pk):
     VIEW TO CREATE A COMMENT
     """
     post = get_object_or_404(Post, id=pk)
+    # FORM TO CREATE A REPLY TO USE IN THE SNIPPETS TEMPLATE
+    reply_comment_form = ReplyCommentCreateForm()
 
     if request.method == "POST":
         form = CommentCreateForm(request.POST)
@@ -137,7 +139,15 @@ def comment_create_view(request, pk):
             comment.parent_post = post
             comment.save()
 
-    return redirect("posts:post-detail", post.id)
+    contex = {
+        "post": post,
+        "comment": comment,
+        "reply_comment_form": reply_comment_form
+    }
+
+    # return redirect("posts:post-detail", post.id)
+    # return render(request, "a_posts/comment.html", {"comment": comment})
+    return render(request, "snippets/add_comment.html", contex)
 
 
 @login_required
@@ -146,6 +156,8 @@ def reply_comment_create_view(request, pk):
     VIEW TO CREATE A REPLAY FOR THE COMMENT
     """
     comment = get_object_or_404(Comment, id=pk)
+    # FORM TO CREATE A REPLY TO USE IN THE SNIPPETS TEMPLATE
+    reply_comment_form = ReplyCommentCreateForm()
 
     if request.method == "POST":
         form = ReplyCommentCreateForm(request.POST)
@@ -155,7 +167,14 @@ def reply_comment_create_view(request, pk):
             replay.parent_comment = comment
             replay.save()
 
-    return redirect("posts:post-detail", comment.parent_post.id)
+    contex = {
+        "comment": comment,
+        "reply": replay,
+        "reply_comment_form": reply_comment_form
+    }
+
+    # return redirect("posts:post-detail", comment.parent_post.id)
+    return render(request, "snippets/add_reply.html", contex)
 
 
 @login_required

@@ -1,0 +1,36 @@
+
+
+<span hx-swap-oob="true" id="comment-replies-count-{{ comment.id }}">&nbsp;{{ comment.replies.count }}</span>
+
+<form autocomplete="off" class="hidden replyForm"
+      hx-post="{% url 'posts:post-reply-comment-create' comment.id %}"
+      hx-target="this"
+      hx-swap="outerHTML"
+>
+    {% csrf_token %}
+    <div class="relative pt-2">
+        <label for="{{ reply_comment_form.id_for_label }}"></label>
+        {{ reply_comment_form.body }}
+        {% if reply_comment_form.body.errors %}
+            <ol>
+                {% for error in reply_comment_form.body.errors %}
+                    <li class="mt-2 text-sm text-red-600 dark:text-red-500"><i
+                            class="fa-sharp fa-solid fa-bomb"></i> {{ error|escape }}</li>
+                {% endfor %}
+            </ol>
+        {% endif %}
+        <button type="submit"
+                class="absolute rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white end-2.5 bottom-2.5 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Submit
+        </button>
+    </div>
+</form>
+
+<fade-in class="opacity-0 block -mt-20 ease-in-out" 
+         _="on load transition my margin-top to 0 over 0.2 seconds then transition my opacity to 1 over 0.4 seconds">
+    {% include "a_posts/reply.html" %}
+</fade-in>
+
+
+
+
