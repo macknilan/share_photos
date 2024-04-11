@@ -21,12 +21,9 @@ def home_view(request, tag=None):
     else:
         posts = Post.objects.all()
 
-    categories = Tag.objects.all()
-
     contex = {
         "posts": posts,
-        "categories": categories,
-        "tag": tag
+        "tag": tag,
     }
 
     return render(request, "a_posts/home.html", contex)
@@ -118,7 +115,6 @@ def post_detail_view(request, pk):
     if request.META.get("HTTP_HX_REQUEST"):
         if "top" in request.GET:
             # comments = post.comments.filter(likes__isnull=False).distinct()
-            print("DEBUGGER")
             comments = post.comments.annotate(num_likes=Count("likes")).filter(num_likes__gt=0).order_by("-num_likes")
 
         else:
@@ -129,7 +125,6 @@ def post_detail_view(request, pk):
             "snippets/loop_post_detail_page_comments.html",
             {"comments": comments, "reply_comment_form": reply_comment_form}
         )
-
 
     contex = {
         "post": post,

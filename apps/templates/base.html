@@ -14,61 +14,20 @@
     <link rel="shortcut icon" type="image/png" href="{% static "images/favicons/favicon.ico" %}">
     <script defer src="https://kit.fontawesome.com/6f83d1d3e1.js" crossorigin="anonymous"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <script defer src="https://unpkg.com/htmx.org@1.9.11" integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0" crossorigin="anonymous"></script>
     <script defer src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+
     <!-- My stuff: Third-party javascript libraries go here -->
+    <script defer src="{% static "js/htmx.min.js" %}"></script>
     <script defer src="{% static "js/myjs.js" %}"></script>
 
     {% compress css %}
         <link rel="stylesheet" href="{% static "src/output.css" %}">
+        <link rel="stylesheet" href="{% static "src/my_css.css" %}">
     {% endcompress %}
-
-    <style>
-
-        .tab_button {
-            background-color: #ffffff;
-            border-color: #D1D5DB;
-            border-radius: 0.5rem;
-            border-width: 1px;
-            color: #111827;
-            font-size: 0.875rem;
-            font-weight: 500;
-            line-height: 1.25rem;
-            margin-bottom: 0.5rem;
-            padding-bottom: 0.625rem;
-            padding-left: 1.25rem;
-            padding-right: 1.25rem;
-            padding-top: 0.625rem;
-        }
-
-        .tab_button:hover {
-            background-color: #F3F4F6;
-        }
-
-        .tab_button.selected {
-            background-color: #1F2937; 
-            border-radius: 0.5rem; 
-            color: #ffffff; 
-            font-size: 0.875rem;
-            font-weight: 500; 
-            line-height: 1.25rem; 
-            margin-bottom: 0.5rem; 
-            padding-bottom: 0.625rem; 
-            padding-left: 1.25rem;
-            padding-right: 1.25rem; 
-            padding-top: 0.625rem;
-        }
-        
-        .tab_button.selected:hover {
-            background-color: #111827;
-        }
-        
-    </style>
 
 </head>
 
 <body class="bg-gray-100">
-
 
     <header class="sticky top-0">
         <div class="flex items-center justify-center">

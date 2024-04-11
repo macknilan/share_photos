@@ -1,0 +1,39 @@
+
+
+.tab_button {
+    background-color: #ffffff;
+    border-color: #D1D5DB;
+    border-radius: 0.5rem;
+    border-width: 1px;
+    color: #111827;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.625rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-top: 0.625rem;
+}
+
+.tab_button:hover {
+    background-color: #F3F4F6;
+}
+
+.tab_button.selected {
+    background-color: #1F2937;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.625rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-top: 0.625rem;
+}
+
+.tab_button.selected:hover {
+    background-color: #111827;
+}

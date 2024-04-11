@@ -16,7 +16,10 @@
                 {% endblock content %}
             </section>
         <!-- ASIDE DE CATEGORÍAS -->
-        {% include "includes/sidebar.html" %}
+
+        {% load sidebar_extra_tags %}
+        {% sidebar_extra_tag_view %}
+
     </div>
 
 {% endblock layout %}
