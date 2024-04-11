@@ -47,17 +47,21 @@
         {% endif %}
         <!-- /FORM FOR COMMENTS -->
         
-        <div class=" flex flex-col md:flex-row">
-
-            <button type="button" class="mb-2 rounded-lg bg-gray-800 px-5 text-sm font-medium text-white py-2.5 me-2 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
-                Newest First
-            </button>
-            <button type="button" class="mb-2 rounded-lg border border-gray-300 bg-white px-5 text-sm font-medium text-gray-900 py-2.5 me-2 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
-                Top Comments
-            </button>
+        <div id="tabs" class="flex flex-col md:flex-row">
+            <div 
+                hx-target="#tab-contents"
+                hx-swap="innerHTML"
+                _="on htmx:afterOnLoad take .selected for event.target"
+            >
+                <button hx-get="{% url 'posts:post-detail' post.id %}" class="cursor-pointer tab_button selected">
+                    Newest First
+                </button>
+                <button hx-get="{% url 'posts:post-detail' post.id %}?top" class="cursor-pointer tab_button">
+                    Top Comments
+                </button>
+            </div>
 
         </div>
-    
     
         <!-- COMMENTS -->
         <div id="tab-contents">

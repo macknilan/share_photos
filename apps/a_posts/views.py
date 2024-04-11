@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -107,11 +108,28 @@ def post_edit_view(request, pk):
 
 def post_detail_view(request, pk):
     """
-    DETAIL OF THE POST VIEW AND PRESENT THE FORM TO COMMENT
+    VIEW FOR THE POST DETAIL AND THE FORM TO COMMENT
     """
     post = get_object_or_404(Post, id=pk)
     comment_form = CommentCreateForm()
     reply_comment_form = ReplyCommentCreateForm()
+
+    # CHECK IF THE REQUEST IS A HTTPX REQUEST
+    if request.META.get("HTTP_HX_REQUEST"):
+        if "top" in request.GET:
+            # comments = post.comments.filter(likes__isnull=False).distinct()
+            print("DEBUGGER")
+            comments = post.comments.annotate(num_likes=Count("likes")).filter(num_likes__gt=0).order_by("-num_likes")
+
+        else:
+            comments = post.comments.all()
+
+        return render(
+            request,
+            "snippets/loop_post_detail_page_comments.html",
+            {"comments": comments, "reply_comment_form": reply_comment_form}
+        )
+
 
     contex = {
         "post": post,
@@ -192,7 +210,7 @@ def comment_delete_view(request, pk):
 
 @login_required
 def replay_comment_delete_view(request, pk):
-    """REPLAY COMMENT DELETE VIEW."""
+    """REPLY COMMENT DELETE VIEW."""
     reply = get_object_or_404(Reply, id=pk, author=request.user)
 
     if request.method == "POST":
