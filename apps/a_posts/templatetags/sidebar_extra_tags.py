@@ -1,8 +1,7 @@
 from django.db.models import Count
 from django.template import Library
 
-from apps.a_posts.models import Tag, Post, Comment
-
+from apps.a_posts.models import Comment, Post, Tag
 
 register = Library()
 

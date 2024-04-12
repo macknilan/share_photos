@@ -1,0 +1,21 @@
+
+
+
+
+    <fade-in class="opacity-0" _="on load transition my opacity to 1 over 0.2 seconds">
+        <div id="tab-content" class="flex flex-wrap justify-center mt-2.5">
+            {% if posts %}
+                {% for post in posts %}
+                    <div class="max-w-sm p-4">
+                        {% include 'a_posts/post.html' %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="text-center">
+                    <p class="text-lg">No posts just jet :-(</p>
+                </div>
+            {% endif %}
+        </div>
+    </fade-in>
+
+

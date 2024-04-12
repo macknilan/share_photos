@@ -1,0 +1,27 @@
+
+
+
+
+    <fade-in class="opacity-0" _="on load transition my opacity to 1 over 0.2 seconds">
+        <div id="tab-content" class="flex flex-wrap justify-center mt-2.5">
+            {% if comments %}
+                {% for comment in comments %}
+                    <div class="max-w-sm p-4">
+                        <a href="{% url 'posts:post-detail' comment.parent_post.id %}">
+                            <picture>
+                                <img class="w-full h-20 object-cover pb-1 rounded-lg"
+                                     src="{{ comment.parent_post.image }}" alt="{{ comment.parent_post.title }}">
+                            </picture>
+                        </a>
+                        {% include 'a_posts/comment.html' %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="text-center">
+                    <p class="text-lg">No comments just jet :-(</p>
+                </div>
+            {% endif %}
+        </div>
+    </fade-in>
+
+

@@ -1,2 +1,7 @@
 
-from .forms_posts import PostCreateFrom, PostEditFrom, CommentCreateForm, ReplyCommentCreateForm
+from .forms_posts import (
+    CommentCreateForm,
+    PostCreateFrom,
+    PostEditFrom,
+    ReplyCommentCreateForm,
+)

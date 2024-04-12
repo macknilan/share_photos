@@ -1,18 +1,18 @@
 from django.urls import path
 
 from apps.a_posts.views import (
+    comment_create_view,
+    comment_delete_view,
     home_view,
+    like_comment_view,
+    like_post_view,
+    like_reply_comment_view,
     post_create_view,
     post_delete_view,
     post_detail_view,
     post_edit_view,
-    comment_create_view,
-    comment_delete_view,
-    reply_comment_create_view,
     replay_comment_delete_view,
-    like_post_view,
-    like_comment_view,
-    like_reply_comment_view
+    reply_comment_create_view,
 )
 
 app_name = "a_posts"

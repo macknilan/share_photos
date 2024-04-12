@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.forms import ModelForm, Textarea, TextInput
 from django.utils.translation import gettext_lazy as _
 
-from apps.a_posts.models import Post, Comment, Reply
+from apps.a_posts.models import Comment, Post, Reply
 
 
 class PostCreateFrom(ModelForm):

@@ -5,7 +5,7 @@
                             class="mb-4 grow rounded-lg border border-gray-200 bg-white shadow-xl dark:border-gray-700 dark:bg-gray-800 md:max-w-sm md:grow-0 lg:max-w-xl">
                         <!-- md:max-w-md -->
                         <div class="flex h-14 items-center justify-between px-4">
-                            <h3 class="mr-1 text-start leading-5">{{ post.title }}</h3>
+                            <h3 class="mr-1 text-start leading-5">{{ post.title|truncatechars:25 }}</h3>
                             <div class="truncate text-sm text-gray-400">flickr
                                 <a href="{{ post.link }}" class="ml-1 hover:underline" target="_blank">@{{ post.artist }}</a>
                             </div>

@@ -4,11 +4,11 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-# Utilities
-from apps.utils.models import TimeStampedModel
-
 # Models
 from apps.a_posts.models import Comment
+
+# Utilities
+from apps.utils.models import TimeStampedModel
 
 
 class LikedComment(TimeStampedModel):

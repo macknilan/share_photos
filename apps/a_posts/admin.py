@@ -4,13 +4,13 @@ from django.contrib import admin
 
 # Models
 from apps.a_posts.models import (
-    Post,
-    Tag,
     Comment,
-    Reply,
-    LikedPost,
     LikedComment,
-    LikedRepliesComment
+    LikedPost,
+    LikedRepliesComment,
+    Post,
+    Reply,
+    Tag,
 )
 
 

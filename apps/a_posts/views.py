@@ -7,10 +7,15 @@ from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from apps.a_posts.forms import PostCreateFrom, PostEditFrom, CommentCreateForm, ReplyCommentCreateForm
+from apps.a_posts.forms import (
+    CommentCreateForm,
+    PostCreateFrom,
+    PostEditFrom,
+    ReplyCommentCreateForm,
+)
 
 # MODELS
-from apps.a_posts.models import Post, Tag, Comment, Reply
+from apps.a_posts.models import Comment, Post, Reply, Tag
 
 
 def home_view(request, tag=None):

@@ -1,11 +1,10 @@
 #
 from django.conf import settings
-from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.shortcuts import get_object_or_404
 
-from apps.users.models import User
-from apps.users.models import Profile
+from apps.users.models import Profile, User
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

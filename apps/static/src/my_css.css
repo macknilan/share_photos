@@ -37,3 +37,33 @@
 .tab_button.selected:hover {
     background-color: #111827;
 }
+
+
+.tab_button_profile {
+    border-radius: 0.5rem;
+    display: inline-block;
+    padding-bottom: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.75rem;
+}
+
+.tab_button_profile:hover {
+    background-color: #F3F4F6;
+    color: #111827;
+}
+
+.tab_button_profile.selected_p {
+    background-color: #2563EB;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    display: inline-block;
+    padding-bottom: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.75rem;
+}
+
+.tab_button_profile.selected_p:hover {
+    color: #D1D5DB;
+}

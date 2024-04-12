@@ -35,10 +35,10 @@
                     <p class="text-base text-gray-900 dark:text-white">
                         {% if profile.location %}
                             <i class="fa-solid fa-location-dot" style="color: #00ff0a;"></i>
-                                {{ profile.location }}
+                            {{ profile.location }}
                         {% else %}
                             <i class="fa-solid fa-map-location" style="color: #00ff0a;"></i>
-                                Planet Earth
+                            Planet Earth
                         {% endif %}
                     </p>
                     <p class="px-6 text-lg text-gray-900 dark:text-white">
@@ -55,28 +55,33 @@
         <!-- /PROFILE CARD -->
         <section>
             <!-- TABS -->
-            <ul id="tabs" class="flex flex-wrap text-center text-sm font-medium text-gray-500 dark:text-gray-400">
+            <ul class="flex flex-wrap text-center text-sm font-medium text-gray-500 dark:text-gray-400"
+                hx-target="#tab-content"
+                hx-swap="innerHTML"
+                _="on htmx:afterOnLoad take .selected_p for event.target"
+            >
                 <li class="me-2">
-                    <a href="#" class="inline-block rounded-lg bg-blue-600 px-4 py-3 text-white active"
+                    <a hx-get="{% url 'users:profile-user' profile.user.username %}"
+                       class="tab_button_profile selected_p"
                        aria-current="page">
                         Latest
                     </a>
                 </li>
                 <li class="me-2">
-                    <a href="#"
-                       class="inline-block rounded-lg px-4 py-3 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white">
+                    <a hx-get="{% url 'users:profile-user' profile.user.username %}?top-posts"
+                       class="tab_button_profile">
                         Top Posts
                     </a>
                 </li>
                 <li class="me-2">
-                    <a href="#"
-                       class="inline-block rounded-lg px-4 py-3 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white">
+                    <a hx-get="{% url 'users:profile-user' profile.user.username %}?top-comments"
+                       class="tab_button_profile">
                         Top Comments
                     </a>
                 </li>
                 <li class="me-2">
-                    <a href="#"
-                       class="inline-block rounded-lg px-4 py-3 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white">
+                    <a hx-get="{% url 'users:profile-user' profile.user.username %}?liked-post"
+                       class="tab_button_profile">
                         Liked Posts
                     </a>
                 </li>
@@ -86,94 +91,18 @@
     </div>
     <!-- Tab contents -->
 
-    <div class="flex flex-wrap justify-center mt-2.5">
-
-        <!-- card 1 -->
-        <div class="max-w-sm p-4">
-            <div class="flex h-full flex-col rounded-lg bg-teal-400 p-8 dark:bg-gray-800">
-                <div class="mb-3 flex items-center">
-                    <div
-                            class="mr-3 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-indigo-500 text-white dark:bg-indigo-500">
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                             stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                        </svg>
-                    </div>
-                    <h2 class="text-lg font-medium text-white dark:text-white">Feature 1</h2>
+    <div id="tab-content" class="flex flex-wrap justify-center mt-2.5">
+        {% if posts %}
+            {% for post in posts %}
+                <div class="max-w-sm p-4">
+                    {% include 'a_posts/post.html' %}
                 </div>
-                <div class="flex flex-grow flex-col justify-between">
-                    <p class="text-base leading-relaxed text-white dark:text-gray-300">
-                        Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice
-                        poutine.
-                    </p>
-                    <a href="#" class="mt-3 inline-flex items-center text-black hover:text-blue-600 dark:text-white">Learn
-                        More
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                             stroke-width="2" class="ml-2 h-4 w-4" viewBox="0 0 24 24">
-                            <path d="M5 12h14M12 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
+            {% endfor %}
+        {% else %}
+        {% else %}
+            <div class="text-center">
+                <p class="text-lg">No posts just jet :-(</p>
             </div>
-        </div>
-
-        <!-- card 2 -->
-        <div class="max-w-sm p-4">
-            <div class="flex h-full flex-col rounded-lg bg-teal-400 p-8 dark:bg-gray-800">
-                <div class="mb-3 flex items-center">
-                    <div
-                            class="mr-3 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-indigo-500 text-white dark:bg-indigo-500">
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                             stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                        </svg>
-                    </div>
-                    <h2 class="text-lg font-medium text-white dark:text-white">Feature 2</h2>
-                </div>
-                <div class="flex flex-grow flex-col justify-between">
-                    <p class="text-base leading-relaxed text-white dark:text-gray-300">
-                        Lorem ipsum dolor sit amet. In quos laboriosam non neque eveniet 33 nihil molestias. Rem
-                        perspiciatis iure ut laborum inventore et maxime amet.
-                    </p>
-                    <a href="#" class="mt-3 inline-flex items-center text-black hover:text-blue-600 dark:text-white">Learn
-                        More
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                             stroke-width="2" class="ml-2 h-4 w-4" viewBox="0 0 24 24">
-                            <path d="M5 12h14M12 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- card 3 -->
-        <div class="max-w-sm p-4">
-            <div class="flex h-full flex-col rounded-lg bg-teal-400 p-8 dark:bg-gray-800">
-                <div class="mb-3 flex items-center">
-                    <div
-                            class="mr-3 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-indigo-500 text-white dark:bg-indigo-500">
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                             stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                        </svg>
-                    </div>
-                    <h2 class="text-lg font-medium text-white dark:text-white">Feature 3</h2>
-                </div>
-                <div class="flex flex-grow flex-col justify-between">
-                    <p class="text-base leading-relaxed text-white dark:text-gray-300">
-                        Lorem ipsum dolor sit amet. In quos laboriosam non neque eveniet 33 nihil molestias. Rem
-                        perspiciatis iure ut laborum inventore et maxime amet.
-                    </p>
-                    <a href="#" class="mt-3 inline-flex items-center text-black hover:text-blue-600 dark:text-white">Learn
-                        More
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                             stroke-width="2" class="ml-2 h-4 w-4" viewBox="0 0 24 24">
-                            <path d="M5 12h14M12 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-
+        {% endif %}
     </div>
 {% endblock content %}
