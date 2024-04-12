@@ -5,7 +5,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # Models
-from apps.a_posts.models import Reply
+from .replies import Reply
 
 # Utilities
 from apps.utils.models import TimeStampedModel

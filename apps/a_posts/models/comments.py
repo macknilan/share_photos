@@ -6,7 +6,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # Models
-from apps.a_posts.models import Post
+from .posts import Post
 
 # Utilities
 from apps.utils.models import TimeStampedModel
