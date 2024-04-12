@@ -9,7 +9,7 @@ register = Library()
 @register.inclusion_tag("includes/sidebar.html")
 def sidebar_extra_tag_view(tag=None, user=None):
     """
-    RETURN CUSTOM TEMPLATE TAG TO INCLUDE IN THE SIDEBAR
+    RETURN CUSTOM TEMPLATE TAG TO INCLUDE IN THE SIDEBAR(a.html layouts)
     """
     categories = Tag.objects.all()
     top_posts = Post.objects.annotate(num_likes=Count("likes")).filter(num_likes__gt=0).order_by("-num_likes")[:5]

@@ -1,9 +1,6 @@
-{% extends "layouts/a.html" %}
-{% load static i18n %}
 
 
-{% block content %}
-
+<fade-in class="opacity-0" _="on load transition my opacity to 1 over 0.6 seconds">
     {% for post in posts %}
                 <!-- CARDS -->
                 {% include "a_posts/post.html" %}
@@ -13,10 +10,9 @@
          hx-trigger="revealed" 
          hx-target="this"  
          hx-swap="outerHTML">
-        
+
         <div class="text-center">
             <i class="fa-solid fa-spinner fa-spin"></i>
         </div>
     </div>
-
-{% endblock content %}
+</fade-in>

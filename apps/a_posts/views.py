@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.core.paginator import Paginator
 
 from apps.a_posts.forms import (
     CommentCreateForm,
@@ -26,12 +27,27 @@ def home_view(request, tag=None):
     else:
         posts = Post.objects.all()
 
-    contex = {
+    # HOW MANY POSTS PER PAGE TO SHOW
+    paginator = Paginator(posts, 3)
+    # THE PAGE NUMBER THE FRONTEND IS REQUESTING, DEFAULT IS 1
+    page = int(request.GET.get("page", 1))
+    # RETURNS A PAGE OBJECT WITH THE GIVEN 1-BASED INDEX
+    try:
+        posts = paginator.page(page)
+    except:
+        return HttpResponse("")
+
+    context = {
+        "page": page,
         "posts": posts,
-        "tag": tag,
+        "tag": tag
     }
 
-    return render(request, "a_posts/home.html", contex)
+    # THIS IS FOR THE INFINITE SCROLL(Paginator)
+    if request.META.get("HTTP_HX_REQUEST"):
+        return render(request, "snippets/loop_home_posts.html", context)
+
+    return render(request, "a_posts/home.html", context)
 
 
 @login_required
