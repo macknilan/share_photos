@@ -1,77 +1,82 @@
 <!-- templates/includes/sidebar.html -->
 {% load static i18n %}
-            <aside class="w-full md:w-5/12 lg:w-4/12">
-                <section>
-                    <article
-                            class="mb-4 rounded-lg border border-gray-200 bg-white p-5 shadow-xl dark:border-gray-700 dark:bg-gray-800">
-                        <!-- md:w-5/12 lg:w-4/12 -->
-                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                         Categories
-                         </h5>
-                        {% for category in categories %}
-                            <ul class="text-left text-lg">
-                                <li class="flex items-center rounded-md py-3 space-x-3 px-2.5 hover:bg-neutral-100 {% if category.slug == tag.slug %}bg-neutral-200{% endif %}">
-                                    <img class="h-8 w-8 object-cover" src="{{ category.image.url }}" alt="{{ category.name }}" title="{{ category.name }}"/>
-                                    <a href="{% url 'posts:category' category.slug %}">{{ category.name }}</a>
-                                </li>
-                            </ul>
-                        {% endfor %}
-                    </article>
-                    <article
-                            class="mb-4 rounded-lg border border-gray-200 bg-white p-5 shadow-xl dark:border-gray-700 dark:bg-gray-800">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            <i class="fa-sharp fa-solid fa-fire" style="color: #e25822;"></i>&nbsp;Top Posts
-                        </h5>
-                        <ul class="text-left text-lg">
-                            <li>
-                                <a href="#"
-                                   class="flex items-center justify-evenly rounded-md py-3 space-x-3 px-2.5 hover:bg-neutral-100">
-                                    <img class="h-10 w-10 rounded" src="{% static "images/users/morty_01.png" %}"
-                                         alt="Default avatar" title="Default avatar">
-                                    <img class="h-8 w-8 rounded-full" src="{% static "images/users/morty_02.png" %}"
-                                         alt="Small avatar" title="Default avatar">
-                                    <span class="mr-1 text-sm font-bold">Animals</span>
-                                    <span class="shrink-0 text-sm font-light text-grey-500"> 8 <span class="">Likes</span> / 2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                   class="flex items-center justify-evenly rounded-md py-3 space-x-3 px-2.5 hover:bg-neutral-100">
-                                    <img class="h-10 w-10 rounded" src="{% static "images/users/morty_01.png" %}"
-                                         alt="Default avatar" title="Default avatar">
-                                    <img class="h-8 w-8 rounded-full" src="{% static "images/users/morty_02.png" %}"
-                                         alt="Small avatar" title="Default avatar">
-                                    <span class="mr-1 text-sm font-bold">Animals</span>
-                                    <span class="shrink-0 text-sm font-light text-grey-500"> 8 <span class="">Likes</span> / 2</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </article>
-                    <article
-                            class="rounded-lg border border-gray-200 bg-white p-5 shadow-xl dark:border-gray-700 dark:bg-gray-800">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            <i class="fa-solid fa-comments" style="color: #ff0000;"></i>&nbsp;Top Comments
-                        </h5>
-                        <ul class="text-left text-lg">
-                            <li>
-                                <a href="#"
-                                   class="flex items-center justify-evenly rounded-md py-3 space-x-3 px-2.5 hover:bg-neutral-100">
-                                    <img class="h-8 w-8 rounded-full" src="{% static "images/users/morty_02.png" %}"
-                                         alt="Small avatar" title="Default avatar">
-                                    <span class="mr-1 text-sm font-bold">Homer: Comment laskdjf ...</span>
-                                    <span class="shrink-0 text-sm font-light text-grey-500"> 8 <span class="">Likes</span> / 2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                   class="flex items-center justify-evenly rounded-md py-3 space-x-3 px-2.5 hover:bg-neutral-100">
-                                    <img class="h-8 w-8 rounded-full" src="{% static "images/users/morty_02.png" %}"
-                                         alt="Small avatar" title="Default avatar">
-                                    <span class="mr-1 text-sm font-bold">Homer: Comment laskdjf ...</span>
-                                    <span class="shrink-0 text-sm font-light text-grey-500"> 8 <span class="">Likes</span> / 2</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </article>
-                </section>
-            </aside>
+<aside class="w-full md:w-5/12 lg:w-4/12">
+    <section>
+        <article
+                class="mb-4 rounded-lg border border-gray-200 bg-white p-5 shadow-xl dark:border-gray-700 dark:bg-gray-800">
+            <!-- md:w-5/12 lg:w-4/12 -->
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Categories
+            </h5>
+            {% for category in categories %}
+                <ul class="text-left text-lg">
+                    <li class="flex items-center rounded-md py-3 space-x-3 px-2.5 hover:bg-neutral-100
+                                    {% if category.slug == tag.slug %}
+                                        bg-gray-200
+                                    {% endif %}">
+                        <img class="h-8 w-8 object-cover" src="{{ category.image.url }}" alt="{{ category.name }}"
+                             title="{{ category.name }}"/>
+                        <a href="{% url 'posts:category' category.slug %}">{{ category.name }}</a>
+                    </li>
+                </ul>
+            {% endfor %}
+        </article>
+        <article
+                class="mb-4 rounded-lg border border-gray-200 bg-white p-5 shadow-xl dark:border-gray-700 dark:bg-gray-800">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <i class="fa-sharp fa-solid fa-fire" style="color: #e25822;"></i>&nbsp;Top Posts
+            </h5>
+            <ul class="text-left text-lg">
+                {% for post in top_posts %}
+                    <li>
+                        <a href="{% url 'posts:post-detail' post.id %}"
+                           class="flex items-center justify-evenly rounded-md py-3 space-x-3 px-2.5 hover:bg-neutral-100">
+                            <img class="h-8 w-10 rounded" src="{{ post.image }}"
+                                 alt="{{ post.title }}" title="{{ post.title }}">
+                            {% if post.author %}
+                                <img class="h-7 w-7 rounded-full" src="{{ post.author.profile.avatar }}"
+                                     alt="{{ post.author.profile.name }}" title="{{ post.author.profile.name }}">
+                                <span class="mr-1 text-sm font-bold">{{ post.author.username }}</span>
+                            {% else %}
+                                <img class="h-7 w-7 rounded-full" src="{% static 'images/users/default_avatar.png' %}"
+                                     alt="No Author" title="No Author">
+                                <span class="mr-1 text-sm">No Author</span>
+                            {% endif %}
+                            <span class="shrink-0 text-sm {% if user in post.likes.all %} font-bold {% else %} font-light {% endif %} text-grey-500">
+                                {{ post.likes.count }}
+                                <span class="">Like{{ post.likes.count|pluralize:'s' }}</span>/{{ post.comments.count }}
+                            </span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </article>
+        <article
+                class="rounded-lg border border-gray-200 bg-white p-5 shadow-xl dark:border-gray-700 dark:bg-gray-800">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <i class="fa-solid fa-comments" style="color: #ff0000;"></i>&nbsp;Top Comments
+            </h5>
+            <ul class="text-left text-lg">
+                {% for comment in top_comments %}
+                    <li>
+                        <a href="{% url 'posts:post-detail' comment.parent_post.id %}"
+                           class="flex items-center justify-evenly rounded-md py-3 space-x-3 px-2.5 hover:bg-neutral-100">
+                            {% if comment.author %}
+                                <img class="h-8 w-8 rounded-full" src="{{ comment.author.profile.avatar }}"
+                                     alt="{{ comment.author.profile.name }}" title="{{ comment.author.profile.name }}">
+                            {% else %}
+                                <img class="h-8 w-8 rounded-full" src="{% static 'images/users/default_avatar.png' %}"
+                                     alt="No Author" title="No Author">
+                            {% endif %}
+                            <span class="mr-1 text-sm font-bold">{{ comment.body|truncatechars:10 }}</span>
+                            <span class="shrink-0 text-sm {% if user in comment.likes.all %} font-bold {% else %} font-light {% endif %} text-grey-500">
+                                {{ comment.likes.count }}
+                                <span class=""> Like{{comment.likes.count|pluralize:'s'}} </span>/{{ comment.replies.count }}
+                            </span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </article>
+    </section>
+</aside>
