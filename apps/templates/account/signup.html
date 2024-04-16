@@ -17,7 +17,7 @@
             {% element fields form=form unlabeled=True %}
             {% endelement %}
             
-            <input type="hidden" name="{{ redirect_field_name }}" value="{% url 'users:profile-onboarding' %}"  />
+            <input type="hidden" name="{{ redirect_field_name }}" value="{% url 'users:profile-onboarding' %}" />
             
         {% endslot %}
         {% slot actions %}

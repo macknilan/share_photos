@@ -18,8 +18,8 @@ class UserAdminChangeForm(admin_forms.UserChangeForm):
 
 class UserAdminCreationForm(admin_forms.UserCreationForm):
     """
-    Form for User Creation in the Admin Area.
-    To change user signup, see UserSignupForm and UserSocialSignupForm.
+    FORM FOR USER CREATION IN THE ADMIN AREA.
+    TO CHANGE USER SIGNUP, SEE usersignupform AND usersocialsignupform.
     """
 
     class Meta(admin_forms.UserCreationForm.Meta):
@@ -33,17 +33,17 @@ class UserAdminCreationForm(admin_forms.UserCreationForm):
 
 # class UserSignupForm(SignupForm):
 #     """
-#     Form that will be rendered on a user sign up section/screen.
-#     Default fields will be added automatically.
-#     Check UserSocialSignupForm for accounts created from social.
+#     FORM THAT WILL BE RENDERED ON A USER SIGN UP SECTION/SCREEN.
+#     DEFAULT FIELDS WILL BE ADDED AUTOMATICALLY.
+#     CHECK usersocialsignupform FOR ACCOUNTS CREATED FROM SOCIAL.
 #     """
 #
 #
 # class UserSocialSignupForm(SocialSignupForm):
 #     """
-#     Renders the form when user has signed up using social accounts.
-#     Default fields will be added automatically.
-#     See UserSignupForm otherwise.
+#     RENDERS THE FORM WHEN USER HAS SIGNED UP USING SOCIAL ACCOUNTS.
+#     DEFAULT FIELDS WILL BE ADDED AUTOMATICALLY.
+#     SEE usersignupform OTHERWISE.
 #     """
 
 class ProfileForm(ModelForm):

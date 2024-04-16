@@ -8,28 +8,55 @@
     {% element h1 %}
         {% trans "Sign In" %}
     {% endelement %}
-    <p>
+    <p class="text-sm font-medium text-gray-900 ms-2 dark:text-gray-300">
         {% blocktrans %}If you have not created an account yet, then please
-    <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}
+            <a class="font-black italic text-primary-600 hover:underline dark:text-primary-500" href="{{ signup_url }}">sign
+                up</a> first.{% endblocktrans %}
     </p>
     {% url 'account_login' as login_url %}
-    {% element form form=form method="post" action=login_url tags="entrance,login" %}
-        {% slot body %}
-            {% csrf_token %}
-            {% element fields form=form unlabeled=True %}
-            {% endelement %}
-            {% if redirect_field_value %}
-                <input type="hidden"
-                       name="{{ redirect_field_name }}"
-                       value="{{ redirect_field_value }}" />
-            {% endif %}
-        {% endslot %}
-        {% slot actions %}
-            {% element button type="submit" tags="prominent,login" %}
-                {% trans "Sign In" %}
-            {% endelement %}
-        {% endslot %}
-    {% endelement %}
+
+    <form class="space-y-4 md:space-y-6" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {# {{ form.as_p }}#}
+        {% if form.errors %}
+            <ul class="text-error">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li class="mt-2 text-sm text-red-600 dark:text-red-500"><i
+                                class="fa-sharp fa-solid fa-bomb"></i>&nbsp;{{ error|escape }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li class="mt-2 text-sm text-red-600 dark:text-red-500"><i class="fa-sharp fa-solid fa-bomb"></i>&nbsp;{{ error|escape }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <p>
+            <label for="{{ form.login.id_for_label }}">Email:</label>
+            {{ form.login }}
+        </p>
+        <p>
+            <label for="{{ form.password.id_for_label }}">Password:</label>
+            {{ form.password }}
+            <a href="{% url 'account_reset_password' %}"
+               class="text-sm font-medium italic text-primary-600 hover:underline dark:text-primary-500">
+                Forgot your Password?
+            </a>
+        </p>
+        <p>
+            <label for="{{ form.remember.id_for_label }}">Remember:</label>
+            {{ form.remember }}
+        </p>
+        {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+        {% endif %}
+        <button type="submit"
+                class="w-full rounded-lg bg-blue-700 px-5 text-center text-sm font-medium text-white py-2.5 hover:bg-blue-800 focus:ring-primary-300 focus:outline-none focus:ring-4 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            SIgn in
+        </button>
+    </form>
+
     {% if SOCIALACCOUNT_ENABLED %}
         {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
     {% endif %}
