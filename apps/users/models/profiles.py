@@ -72,7 +72,7 @@ class Profile(TimeStampedModel):
         try:
             avatar = self.picture.url
         except:
-            avatar = static('images/users/default_avatar.png')
+            avatar = static('images/users/default_avatar.svg')
 
         return avatar
 

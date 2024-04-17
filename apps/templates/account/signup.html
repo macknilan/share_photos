@@ -11,7 +11,6 @@
         {% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
     </p>
     {% url 'account_signup' as action_url %}
-
         <form class="space-y-4 md:space-y-6" method="POST" action="{% url 'account_signup' %}">
             {% csrf_token %}
             {# {{ form.as_p }}#}
@@ -51,18 +50,14 @@
                 <label for="{{ form.password2.id_for_label }}">Password (again):</label>
                 {{ form.password2 }}
             </p>
-        
-            {% if redirect_field_value %}
-                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-            {% endif %}
+            
+            <input type="hidden" name="{{ redirect_field_name }}" value="{% url 'users:profile-onboarding' %}" />
 
             <button type="submit"
-                class="w-full rounded-lg bg-blue-700 px-5 text-center text-sm font-medium text-white py-2.5 hover:bg-blue-800 focus:ring-primary-300 focus:outline-none focus:ring-4 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Sgn Up
+                    class="w-full rounded-lg bg-blue-700 px-5 text-center text-sm font-medium text-white py-2.5 hover:bg-blue-800 focus:ring-primary-300 focus:outline-none focus:ring-4 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Sign Up
             </button>
         </form>
-
-
     {% if SOCIALACCOUNT_ENABLED %}
         {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
     {% endif %}

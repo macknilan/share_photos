@@ -1,7 +1,7 @@
 # FORMS FOR USER ALLAUTH SIGNUP, LOGIN, AND PASSWORD RESET.
 
 
-from allauth.account.forms import LoginForm, SignupForm
+from allauth.account.forms import LoginForm, SignupForm, ResetPasswordForm
 from django import forms
 
 
@@ -88,6 +88,25 @@ class MyCustomSignupForm(SignupForm):
         return user
 
 
+class MyCustomResetPasswordForm(ResetPasswordForm):
+    """
+    TODO
+    """
+    email = forms.EmailField(label="Email:", max_length=255, widget=forms.EmailInput(attrs={
+        "id": "id_email",
+        "type": "email",
+        "placeholder": "Email address",
+        "autocomplete": "False",
+        "class": "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    }))
 
+    def save(self, request):
+
+        # Ensure you call the parent class's save.
+        # .save() returns a string containing the email address supplied
+        email_address = super(MyCustomResetPasswordForm, self).save(request)
+        # Add your own processing here.
+        # Ensure you return the original result
+        return email_address
 
 
