@@ -11,21 +11,58 @@
         {% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
     </p>
     {% url 'account_signup' as action_url %}
-    {% element form form=form method="post" action=action_url tags="entrance,signup" %}
-        {% slot body %}
+
+        <form class="space-y-4 md:space-y-6" method="POST" action="{% url 'account_signup' %}">
             {% csrf_token %}
-            {% element fields form=form unlabeled=True %}
-            {% endelement %}
-            
-            <input type="hidden" name="{{ redirect_field_name }}" value="{% url 'users:profile-onboarding' %}" />
-            
-        {% endslot %}
-        {% slot actions %}
-            {% element button tags="prominent,signup" type="submit" %}
-                {% trans "Sign Up" %}
-            {% endelement %}
-        {% endslot %}
-    {% endelement %}
+            {# {{ form.as_p }}#}
+            {% if form.errors %}
+                <ul class="text-error">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li class="mt-2 text-sm text-red-600 dark:text-red-500"><i
+                                    class="fa-sharp fa-solid fa-bomb"></i>&nbsp;{{ error|escape }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li class="mt-2 text-sm text-red-600 dark:text-red-500"><i class="fa-sharp fa-solid fa-bomb"></i>&nbsp;{{ error|escape }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <p>
+                <label for="{{ form.email.id_for_label }}">Email:</label>
+                {{ form.email }}
+            </p>
+            <p>
+                <label for="{{ form.username.id_for_label }}">Username:</label>
+                {{ form.username }}
+            </p>
+            <p>
+                <label for="{{ form.password1.id_for_label }}">Password:</label>
+                {{ form.password1 }}
+            </p>
+            <ul class="list-none text-pretty mt-2 text-sm text-gray-500 dark:text-gray-400">
+               <li>Your password can’t be too similar to your other personal information.</li>
+                <li>Your password must contain at least 8 characters.</li>
+                <li>Your password can’t be a commonly used password.</li>
+                <li>Your password can’t be entirely numeric.</li>
+            </ul>
+            <p>
+                <label for="{{ form.password2.id_for_label }}">Password (again):</label>
+                {{ form.password2 }}
+            </p>
+        
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+
+            <button type="submit"
+                class="w-full rounded-lg bg-blue-700 px-5 text-center text-sm font-medium text-white py-2.5 hover:bg-blue-800 focus:ring-primary-300 focus:outline-none focus:ring-4 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Sgn Up
+            </button>
+        </form>
+
+
     {% if SOCIALACCOUNT_ENABLED %}
         {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
     {% endif %}

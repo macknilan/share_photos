@@ -67,3 +67,24 @@
 .tab_button_profile.selected_p:hover {
     color: #D1D5DB;
 }
+
+
+/* ESTILOS PARA FORMULARIO SIGNUP */
+#id_password1, #id_password2 {
+    background-color: #F9FAFB;
+    border-color: #D1D5DB;
+    border-radius: 0.5rem;
+    border-width: 1px;
+    color: #111827;
+    display: block;
+    padding: 0.625rem;
+    width: 100%;
+}
+
+@media (min-width: 640px) {
+    #id_password1, #id_password2  {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
+}
+

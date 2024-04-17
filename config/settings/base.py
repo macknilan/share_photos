@@ -328,7 +328,10 @@ ACCOUNT_USERNAME_BLACKLIST = [
     "dashboard"
 ]
 # https://docs.allauth.org/en/latest/account/forms.html
-ACCOUNT_FORMS = {"login": "apps.users.forms.forms_user.MyCustomLoginForm"}
+ACCOUNT_FORMS = {
+    "login": "apps.users.forms.forms_user.MyCustomLoginForm",
+    "signup": "apps.users.forms.forms_user.MyCustomSignupForm"
+}
 # https://docs.allauth.org/en/latest/account/configuration.html
 # ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://docs.allauth.org/en/latest/account/configuration.html
