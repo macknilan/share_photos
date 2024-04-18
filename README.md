@@ -110,3 +110,25 @@ Correr el siguiente comando para compilar los estilos:
 ```bash
 npm run dev
 ```
+
+## Screenshots
+
+![Home](/screenshots/home.png "Home")
+
+![Making a post](/screenshots/make_post.png "Making a post")
+
+![The article](/screenshots/post_comments_replies.png "The article")
+
+![Categories](/screenshots/posts_by_category.png "Categories")
+
+![User sign in](/screenshots/sign_in.png "User sign in")
+
+![User sign up](/screenshots/sign_up.png "User sign up")
+
+![User profile](/screenshots/user_profile.png "User profile")
+
+![Edit user profile](/screenshots/user_edit_profile.png "Edit user profile")
+
+![User menu](/screenshots/user_menu.png "User menu")
+
+![User password reset](/screenshots/reset_password.png "User password reset")
