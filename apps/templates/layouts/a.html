@@ -1,9 +1,10 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block layout %}
 
     <!-- HERO -->
-    <section class="dark:bg-gray-900 bg-cover bg-[url('https://live.staticflickr.com/65535/49909538937_3255dcf9e7_b.jpg')]">
+    <section class="dark:bg-gray-900 bg-cover  " style="background-image: url('{% static 'images/bg_img_hero_test.png' %}">
         <!-- bg-white -->
         {% include "includes/hero.html" %}
     </section>
